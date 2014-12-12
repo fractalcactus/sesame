@@ -14,3 +14,12 @@ World Playground App
 --Post Username and Password to JSON
 ###PathInfo
 --Post Coordinates Information and Path ID to JSON
+###Creating Path
+--Path Name
+--Category
+--Description
+--UserId
+
+#DELETE
+--Deletes Path Id
+--Deletes Waypoint Id
