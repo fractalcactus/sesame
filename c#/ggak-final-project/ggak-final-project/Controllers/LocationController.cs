@@ -10,12 +10,12 @@ namespace ggak_final_project.Controllers
     public class LocationController : ApiController
     {
         // GET: api/Location
-        public String Get(String data)
+        public DateTime Get(String data)
         {
           //expect a geometry
             //If you have a hit a checkpoint in the DB: return the pointID and the matching URL
 
-            return "return"; 
+            return  DateTime.UtcNow; 
         }
 
         // GET: api/Location/5
