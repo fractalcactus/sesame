@@ -481,5 +481,11 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:ggak_final_project.Controllers.CheckPointController.Get">
+            <summary>
+            This is the summary of this method
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>
