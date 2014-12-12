@@ -212,6 +212,22 @@
     <Compile Include="Migrations\201412120434540_init.Designer.cs">
       <DependentUpon>201412120434540_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412120623077_lat-to-int-test.cs" />
+    <Compile Include="Migrations\201412120623077_lat-to-int-test.Designer.cs">
+      <DependentUpon>201412120623077_lat-to-int-test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412120641108_added-coordinate-field-instead.cs" />
+    <Compile Include="Migrations\201412120641108_added-coordinate-field-instead.Designer.cs">
+      <DependentUpon>201412120641108_added-coordinate-field-instead.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412120651376_added-coordinates-with-DbGeometry.cs" />
+    <Compile Include="Migrations\201412120651376_added-coordinates-with-DbGeometry.Designer.cs">
+      <DependentUpon>201412120651376_added-coordinates-with-DbGeometry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412120713216_added-url-string.cs" />
+    <Compile Include="Migrations\201412120713216_added-url-string.Designer.cs">
+      <DependentUpon>201412120713216_added-url-string.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -319,6 +335,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201412120434540_init.resx">
       <DependentUpon>201412120434540_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412120623077_lat-to-int-test.resx">
+      <DependentUpon>201412120623077_lat-to-int-test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412120641108_added-coordinate-field-instead.resx">
+      <DependentUpon>201412120641108_added-coordinate-field-instead.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412120651376_added-coordinates-with-DbGeometry.resx">
+      <DependentUpon>201412120651376_added-coordinates-with-DbGeometry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412120713216_added-url-string.resx">
+      <DependentUpon>201412120713216_added-url-string.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
