@@ -10,11 +10,12 @@ namespace ggak_final_project.Controllers
     public class LocationController : ApiController
     {
         // GET: api/Location
-        public DateTime Get()
+        public DateTime Get(String data)
         {
-            DateTime current = DateTime.UtcNow; 
+          //expect a geometry
+            //If you have a hit a checkpoint in the DB: return the pointID and the matching URL
 
-            return current; 
+            return  DateTime.UtcNow; 
         }
 
         // GET: api/Location/5
