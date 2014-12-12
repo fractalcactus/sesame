@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ggak_final_project.Controllers
+namespace SignalRChat.Controllers
 {
     public class HomeController : Controller
     {
@@ -26,7 +26,7 @@ namespace ggak_final_project.Controllers
 
             return View();
         }
-        //added
+
         public ActionResult Chat()
         {
             return View();
