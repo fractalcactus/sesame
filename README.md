@@ -7,7 +7,7 @@ World Playground App
 ###Consuming the Google Maps API
 -Brings in the WayPoint ID and URL
 --App sources this information, creating the Latitude, Longitude, and Path ID
----Markers on the map
+--Markers on the map
 
 
 #POST
