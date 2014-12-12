@@ -4,15 +4,11 @@ var Controller = function(){
 
 Controller.prototype = {
   getLocation: function() {
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-          x.innerHTML = "Geolocation is not supported by this browser.";
-      }
+      navigator.geolocation.getCurrentPosition(showPosition);
   },
   showPosition: function(position) {
+      console.log("argh")
       x.innerHTML = "Latitude: " + position.coords.latitude +
       "<br>Longitude: " + position.coords.longitude;
   }
 }
-
