@@ -12,6 +12,7 @@ using System.Web.Http.Description;
 using ggak_final_project.Models;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ggak_final_project.Controllers
 {
@@ -28,7 +29,8 @@ namespace ggak_final_project.Controllers
         // GET: api/WayPoints/5
         [ResponseType(typeof(WayPoint))]
         public String GetWayPoint(String lat, String lng)
-            //takes a lat and a long as a json object
+            //takes a lat and a long as params
+            //checks to see if that lat and long is in the database *ALEX LOCATION CODE HERE*
             
         {
             //Debug.WriteLine(input);
@@ -79,18 +81,14 @@ namespace ggak_final_project.Controllers
         }
 
         // POST: api/WayPoints
+        //store lat and long and url in db
+        [HttpPost]
         [ResponseType(typeof(WayPoint))]
-        public IHttpActionResult PostWayPoint(WayPoint wayPoint)
+        public string PostWayPoint([FromBody]string value)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            WayPoint waypoint = JsonConvert.DeserializeObject<WayPoint>(value);
 
-            db.WayPoints.Add(wayPoint);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = wayPoint.Id }, wayPoint);
+            return waypoint.Lat.ToString();
         }
 
         // DELETE: api/WayPoints/5
