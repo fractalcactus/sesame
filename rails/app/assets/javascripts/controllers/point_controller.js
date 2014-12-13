@@ -26,7 +26,6 @@
     },
     moveUserMarker: function(pos) {
       if(this.view.userMarker) {
-        var newpos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         this.view.userMarker.setPosition(pos);
       }
       else {
@@ -53,13 +52,24 @@
     retrieveMarkers: function() {
       // var markers = getMarkers();
       var self = this;
+      this.allMarkers = []
       $.each(markers, function(index, item) {
         var marker = new PointMarker(item)
-        marker.placeMarker(self.view.map);
+        var googleMarker = marker.placeMarker(self.view.map);
+        self.allMarkers.push(googleMarker)
       })
+      console.log(this.allMarkers)
     }
 
   }
+
+  var markers = [
+  {id:1,lat:-41.292936, lng:174.778219},
+  {id:2,lat:-41.282786, lng:174.766310},
+  {id:3,lat:-41.303866, lng:174.742127},
+  {id:4,lat:-41.311305, lng:174.818388},
+  {id:5,lat:-41.278163, lng:174.777446}
+  ]
 
         // renderMarkers();
         // map.setCenter(pos);
