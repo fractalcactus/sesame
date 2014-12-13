@@ -2,11 +2,14 @@
     this.view = new View();
     this.getUserLocation();
     this.retrieveMarkers();
+    this.positionRefresh();
   }
 
   Controller.prototype = {
     positionRefresh: function() {
-      setTimeout(console.log("Location"), 5000);
+      setInterval(function(){
+        this.getUserLocation()
+      }.bind(this), 5000);
     },
     getUserLocation: function() {
       if(navigator.geolocation) {
@@ -19,6 +22,16 @@
     positionReponse: function(position) {
       var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       this.checkLocation(pos);
+      this.moveUserMarker(pos);
+    },
+    moveUserMarker: function(pos) {
+      if(this.view.userMarker) {
+        var newpos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        this.view.userMarker.setPosition(pos);
+      }
+      else {
+        this.view.initializeUserMarker(pos);
+      }
     },
     positionError: function() {
       handleNoGeolocation(true);

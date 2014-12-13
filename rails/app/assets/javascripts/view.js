@@ -9,6 +9,13 @@ View.prototype = {
       zoom: 18
     }
   this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  },
+  initializeUserMarker: function(pos) {
+      this.userMarker = new google.maps.Marker({
+      position: pos,
+      map: this.map,
+      title: "User Marker"
+    })
   }
 }
 
