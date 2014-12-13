@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ggak_final_project.Models;
+using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
 
 namespace ggak_final_project.Controllers
 {
@@ -16,7 +19,7 @@ namespace ggak_final_project.Controllers
     {
         private WorldPlaygroundDBContext db = new WorldPlaygroundDBContext();
 
-        // GET: api/WayPoints
+        //GET: api/WayPoints
         public IQueryable<WayPoint> GetWayPoints()
         {
             return db.WayPoints;
@@ -24,15 +27,20 @@ namespace ggak_final_project.Controllers
 
         // GET: api/WayPoints/5
         [ResponseType(typeof(WayPoint))]
-        public IHttpActionResult GetWayPoint(int id)
+        public String GetWayPoint(String lat, String lng)
+            //takes a lat and a long as a json object
+            
         {
-            WayPoint wayPoint = db.WayPoints.Find(id);
-            if (wayPoint == null)
-            {
-                return NotFound();
-            }
+            //Debug.WriteLine(input);
+            ////return id and url IF the lat and long is in the DB
+            //WayPoint wayPoint = db.WayPoints.Find(id);
+            //if (wayPoint == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return Ok(wayPoint);
+            //return Ok(wayPoint);
+            return lat + " " + lng;
         }
 
         // PUT: api/WayPoints/5
