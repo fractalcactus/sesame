@@ -1,7 +1,7 @@
   function Controller() {
     this.view = new View();
     this.getUserLocation();
-    console.log(this)
+    this.retrieveMarkers();
   }
 
   Controller.prototype = {
@@ -36,10 +36,16 @@
     // .fail(function() {
     //   alert( "ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA" );
     // })
+    },
+    retrieveMarkers: function() {
+      // var markers = getMarkers();
+      var self = this;
+      $.each(markers, function(index, item) {
+        var marker = new PointMarker(item)
+        marker.placeMarker(self.view.map);
+      })
     }
-    // retrieveMarkers: function() {
 
-    // }
   }
 
         // renderMarkers();
@@ -114,20 +120,9 @@
   //   //   alert( "ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA" );
   //   // })
   // }
-  // var markers = [
-  //   {id:1,lat:-41.292936, lng:174.778219},
-  //   {id:2,lat:-, lng:},
-  //   {id:3,lat:-, lng:},
-  //   {id:4,lat:-, lng:},
-  //   {id:5,lat:-, lng:},
-  // ]
-  var renderMarkers = function() {
-    // var markers = getMarkers();
-    $.each(markers, function(index, item) {
-      var marker = new PointMarker(item)
-      marker.placeMarker
-    })
-  }
+
+
+
 
   // var getMarkers = function() {
   //   // $.ajax({
@@ -143,23 +138,6 @@
     // return JSON array
   // }
 
-  var PointMarker = function(lat, lng) {
-    this.lat = lat;
-    this.lng = lng;
-  }
 
-  PointMarker.prototype = {
-    placeMarker: function() {
-      console.log("Inside placing marker")
-      console.log("map:" + map)
-      var centralPark = new google.maps.LatLng(37.7699298, -122.4469157);
-      console.log(centralPark)
-      new google.maps.Marker({
-        position: centralPark,
-        map: map,
-        title: "This is a title"
-      })
-    }
-  }
 
 
