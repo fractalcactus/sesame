@@ -228,6 +228,10 @@
     <Compile Include="Migrations\201412120713216_added-url-string.Designer.cs">
       <DependentUpon>201412120713216_added-url-string.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412130011382_added-lat-long-rows.cs" />
+    <Compile Include="Migrations\201412130011382_added-lat-long-rows.Designer.cs">
+      <DependentUpon>201412130011382_added-lat-long-rows.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -347,6 +351,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201412120713216_added-url-string.resx">
       <DependentUpon>201412120713216_added-url-string.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412130011382_added-lat-long-rows.resx">
+      <DependentUpon>201412130011382_added-lat-long-rows.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
