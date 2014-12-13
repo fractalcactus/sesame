@@ -11,7 +11,8 @@ namespace ggak_final_project.Models
     public class WayPoint
     {
         public int Id { get; set; }
-        public DbGeometry Coordinate { get; set; }
+        public DbGeometry Lat { get; set; }
+        public DbGeometry Long { get; set; }
         public String URL { get; set; }
      
     }
