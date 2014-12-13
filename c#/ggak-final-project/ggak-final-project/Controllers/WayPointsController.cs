@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ggak_final_project.Models;
@@ -42,53 +43,67 @@ namespace ggak_final_project.Controllers
             //}
 
             //return Ok(wayPoint);
+          
             return lat + " " + lng;
         }
 
         // PUT: api/WayPoints/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutWayPoint(int id, WayPoint wayPoint)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutWayPoint(int id, WayPoint wayPoint)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != wayPoint.Id)
-            {
-                return BadRequest();
-            }
+        //    if (id != wayPoint.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(wayPoint).State = EntityState.Modified;
+        //    db.Entry(wayPoint).State = EntityState.Modified;
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!WayPointExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!WayPointExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
         // POST: api/WayPoints
         //store lat and long and url in db
         [HttpPost]
         [ResponseType(typeof(WayPoint))]
-        public string PostWayPoint([FromBody]string value)
+        public string PostWayPoint([FromBody]string input)
         {
-            WayPoint waypoint = JsonConvert.DeserializeObject<WayPoint>(value);
+            WayPoint waypoint = JsonConvert.DeserializeObject<WayPoint>(input); //convert the input from Json to a WayPoint Object
 
-            return waypoint.Lat.ToString();
+            float checkLat = waypoint.Lat; //get the Lat and Long from the Json object
+            float checkLong = waypoint.Long;
+
+            IQueryable<WayPoint> allPoints = db.WayPoints; //get all points from db
+
+            foreach (WayPoint point in allPoints)
+            {
+                if (point.Lat.Equals(checkLat) && point.Long.Equals(checkLong))
+                {
+                    return "true";
+                }
+            }
+            return "cat";
+
         }
 
         // DELETE: api/WayPoints/5
