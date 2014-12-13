@@ -1,6 +1,5 @@
-// $(document).ready( function() {
+$(document).ready( function() {
 
-//   controller = new Controller();
-//   controller.iniitalize();
+  controller = new Controller();
 
-// })
+})
