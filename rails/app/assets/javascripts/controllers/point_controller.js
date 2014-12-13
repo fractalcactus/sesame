@@ -5,6 +5,8 @@
     this.positionRefresh();
   }
 
+  var global = this;
+
   Controller.prototype = {
     positionRefresh: function() {
       setInterval(function(){
@@ -35,8 +37,21 @@
     positionError: function() {
       handleNoGeolocation(true);
     },
+    // THis is what I need to fix in order to make it pop up with the marker that corresponds to the ajax response
     checkLocation: function(pos) {
-      console.log(pos)
+      var response = {
+        id: 2,
+        url: "A url!",
+      }
+      var enteredMarker;
+      $.each(allMarkers, function (index, marker) {
+        if(marker.title == String(response.id)) {
+          enteredMarker = marker
+        }
+      });
+      this.openPoint(enteredMarker);
+    },
+
     // $.ajax({
     //   type: "GET",
     //   url: "/api/location",
@@ -48,20 +63,31 @@
     // .fail(function() {
     //   alert( "ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA" );
     // })
+    openPoint: function(enteredMarker) {
+
+      enteredMarker.setIcon('http://www.broadwaybagels.ie/images/sesame.gif')
+
+      google.maps.event.addListener(enteredMarker, 'click', function() {
+        var infowindow = new google.maps.InfoWindow({
+          map: this.view.map,
+          position: enteredMarker.position,
+          content: "<a href='http://www.google.com'>Google!</a>"
+        });
+      });
     },
     retrieveMarkers: function() {
       // var markers = getMarkers();
       var self = this;
-      this.allMarkers = []
       $.each(markers, function(index, item) {
         var marker = new PointMarker(item)
         var googleMarker = marker.placeMarker(self.view.map);
-        self.allMarkers.push(googleMarker)
+        global.allMarkers.push(googleMarker)
       })
-      console.log(this.allMarkers)
     }
 
   }
+
+  var allMarkers = []
 
   var markers = [
   {id:1,lat:-41.292936, lng:174.778219},
@@ -95,7 +121,7 @@
   //     // $.ajax({
   //     //   type: "POST",
   //     //   url: "/api/location",
-  //     //   data: { LatLng: pos }
+  //     //   data: { Lat: marker.position.lat, Lng: marker.position.lng, url: }
   //     // })
   //     // .done(function( msg ) {
   //     //   alert( "Data Saved: " + msg );
