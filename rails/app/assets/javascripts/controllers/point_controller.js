@@ -39,17 +39,17 @@
     },
     // THis is what I need to fix in order to make it pop up with the marker that corresponds to the ajax response
     checkLocation: function(pos) {
+      var self = this;
       var response = {
         id: 2,
         url: "A url!",
       }
-      var enteredMarker;
       $.each(allMarkers, function (index, marker) {
         if(marker.title == String(response.id)) {
-          enteredMarker = marker
+          self.changeEnteredIcon(marker);
+          self.openPoint(marker);
         }
       });
-      this.openPoint(enteredMarker);
     },
 
     // $.ajax({
@@ -63,13 +63,15 @@
     // .fail(function() {
     //   alert( "ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA" );
     // })
-    openPoint: function(enteredMarker) {
-
+    changeEnteredIcon: function(enteredMarker) {
       enteredMarker.setIcon('http://www.broadwaybagels.ie/images/sesame.gif')
-
-      google.maps.event.addListener(enteredMarker, 'click', function() {
+    },
+    openPoint: function(enteredMarker) {
+      var self = this;
+      google.maps.event.clearListeners(enteredMarker, 'click');
+      var clickListener = google.maps.event.addListener(enteredMarker, 'click', function() {
         var infowindow = new google.maps.InfoWindow({
-          map: this.view.map,
+          map: self.view.map,
           position: enteredMarker.position,
           content: "<a href='http://www.google.com'>Google!</a>"
         });
