@@ -229,6 +229,14 @@
     <Compile Include="Migrations\201412140129163_changed-Long-to-Lng.Designer.cs">
       <DependentUpon>201412140129163_changed-Long-to-Lng.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412142306520_added-longitude-latitude.cs" />
+    <Compile Include="Migrations\201412142306520_added-longitude-latitude.Designer.cs">
+      <DependentUpon>201412142306520_added-longitude-latitude.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412142324349_deleted-lat-lng.cs" />
+    <Compile Include="Migrations\201412142324349_deleted-lat-lng.Designer.cs">
+      <DependentUpon>201412142324349_deleted-lat-lng.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -332,6 +340,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201412140129163_changed-Long-to-Lng.resx">
       <DependentUpon>201412140129163_changed-Long-to-Lng.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412142306520_added-longitude-latitude.resx">
+      <DependentUpon>201412142306520_added-longitude-latitude.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412142324349_deleted-lat-lng.resx">
+      <DependentUpon>201412142324349_deleted-lat-lng.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

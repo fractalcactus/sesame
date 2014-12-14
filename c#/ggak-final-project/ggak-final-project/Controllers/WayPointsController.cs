@@ -46,7 +46,7 @@ namespace ggak_final_project.Controllers
 
             foreach (WayPoint point in allPoints)
             {
-                if (point.Lat.Equals(checkLat) && point.Lng.Equals(checklng))
+                if (point.Latitude.Equals(checkLat) && point.Longitude.Equals(checklng))
                 {
                     pointToReturn = point;
                     break;
