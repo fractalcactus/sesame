@@ -4,7 +4,7 @@
     this.retrieveMarkers();
     this.positionRefresh();
     this.addListeners();
-    //added search
+    this.lastWindow;
     this.search();
   }
 
@@ -119,30 +119,16 @@
       var self = this;
       google.maps.event.clearListeners(enteredMarker, 'click');
       var clickListener = google.maps.event.addListener(enteredMarker, 'click', function() {
-        var infowindow = new google.maps.InfoWindow({
+        if (self.currentWindow != undefined){
+          self.currentWindow.close();
+        }
+        self.currentWindow = new google.maps.InfoWindow({
           map: self.view.map,
           position: enteredMarker.position,
           content: "<a href='http://www.google.com'>Google!</a>"
         });
       });
     },
-
-    // openPoint: function(enteredMarker) {
-    //   var self = this;
-    //   google.maps.event.clearListeners(enteredMarker, 'click');
-
-    //   var infowindow = new google.maps.InfoWindow({
-    //     map: self.view.map,
-    //     position: enteredMarker.position,
-    //     content: "<a href='http://www.google.com'>Google!</a>",
-    //     disableAutoPan: true
-    //   });
-
-    //   google.maps.event.addListener(enteredMarker, 'click', function() {
-    //     console.log(infowindow + " hereherheh")
-    //     infowindow.open(self.view.map, enteredMarker)
-    //   });
-    // },
 
     retrieveMarkers: function() {
       // var markers = getMarkers();
