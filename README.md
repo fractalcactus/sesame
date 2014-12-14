@@ -23,10 +23,10 @@ This API is written in C# and consumed by the front end JS
 
 ### Public Routes
 
-#### POST api/WayPoints
+#### GET api/WayPoints
 
 *Description:*
-This works like a GET, but needs to be a post so it can take a JSON. Takes a lat and lng in the form of a json string, checks if those coords are in the DB, evenutally having a range of acceptable points (e.g a radius of being at a WayPoint)
+ Takes a lat and lng in the form of a json string, checks if those coords are in the DB, evenutally having a range of acceptable points (e.g a radius of being at a WayPoint)
 
 *expects:*
 ```json
@@ -39,6 +39,68 @@ This works like a GET, but needs to be a post so it can take a JSON. Takes a lat
     "Lat": 3,
     "Lng": 0,
     "URL": "https://www.youtube.com/watch?v=JIOCc0tfoqA"
+}
+```
+*Error:*
+`Status Code - 400`
+
+#### GET api/WayPoints
+
+*Description:*
+No parameters, returns all Waypoints in database as an array of JSON objects
+
+*expects:*
+nothing
+
+*Success:*
+```json
+[
+    {
+        "Id": 1,
+        "Lat": 174.780136,
+        "Lng": -41.1232147,
+        "URL": "https://www.youtube.com/watch?v=PS_b6TthSGQ"
+    },
+    {
+        "Id": 3,
+        "Lat": 3,
+        "Lng": 4,
+        "URL": "https://www.youtube.com/watch?v=JIOCc0tfoqA"
+    },
+    {
+        "Id": 4,
+        "Lat": 174.780136,
+        "Lng": -41.1232147,
+        "URL": "Iaddedthis"
+    },
+    {
+        "Id": 5,
+        "Lat": 174.780136,
+        "Lng": -41.1232147,
+        "URL": "Ialsoaddedthis"
+    }
+]
+```
+*Error:*
+`Status Code - 400`
+
+
+#### POST api/WayPoints
+
+*Description:*
+adds a waypoint into the DB and returns everything with an id 
+
+*expects:*
+```json
+'{"Lat": 174.780136, "Lng": -41.1232147, "URL": "Ialsoaddedthis"}'
+```
+*Success:*
+```json
+{
+    "Id": 6,
+    "Lat": 174.780136,
+    "Lng": -41.1232147,
+    "URL": "Ialsoaddedthis"
 }
 ```
 *Error:*
