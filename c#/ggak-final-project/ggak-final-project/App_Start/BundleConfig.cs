@@ -14,6 +14,12 @@ namespace ggak_final_project
             //bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
             //            "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                       "~/Scripts/jquery-{version}.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+                        "~/Scripts/jquery.validate*"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -27,6 +33,8 @@ namespace ggak_final_project
                       "~/Scripts/view.js",
                       "~/Scripts/point_controller.js",
                       "~/Scripts/point_marker.js"));
+
+            BundleTable.EnableOptimizations = false; //change back to true
         }
     }
 }

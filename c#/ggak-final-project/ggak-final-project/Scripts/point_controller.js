@@ -1,12 +1,13 @@
   function Controller() {
     this.view = new View();
     this.getUserLocation();
-    this.retrieveMarkers();
+    this.getMarkers();
     this.positionRefresh();
     this.addListeners();
   }
 
   var global = this;
+  var allMarkers = [];
 
   Controller.prototype = {
     addListeners: function() {
@@ -46,17 +47,32 @@
     },
     // THis is what I need to fix in order to make it pop up with the marker that corresponds to the ajax response
     checkLocation: function(pos) {
-      var self = this;
-      var response = {
-        id: 2,
-        url: "A url!",
-      }
-      $.each(allMarkers, function (index, marker) {
-        if(marker.title == String(response.id)) {
-          self.changeEnteredIcon(marker);
-          self.openPoint(marker);
-        }
-      });
+        var self = this;
+        var userLat = pos.lat();
+        var userLng = pos.lng();
+        $.ajax({
+            type: "GET",
+            //url: "api/WayPoints?lat="+userLat+"&lng="+userLng
+            url: "api/WayPoints?lat=-41.3038673&lng=174.742126"
+    })
+        .done(function(response) {
+          if (response.Id != 0) {
+              self.findEnteredMarker(response.Id)
+          };
+        })
+        .fail(function() {
+            alert("Checking database failed");
+        });
+    },
+    findEnteredMarker: function (id) {
+        var pointId = id;
+        var self = this;
+        $.each(global.allMarkers, function (index, marker) {
+            if (marker.title == pointId) {
+                self.changeEnteredIcon(marker);
+                self.openPoint(marker);
+            }
+        });
     },
     newPoint: function() {
       var self = this;
@@ -89,19 +105,6 @@
       // })
 
     },
-
-
-    // $.ajax({
-    //   type: "GET",
-    //   url: "/api/location",
-    //   data: { LatLng: pos }
-    // })
-    // .done(function( msg ) {
-    //   alert( "Data Saved: " + msg );
-    // });
-    // .fail(function() {
-    //   alert( "ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA" );
-    // })
     changeEnteredIcon: function(enteredMarker) {
       enteredMarker.setIcon('http://www.broadwaybagels.ie/images/sesame.gif')
     },
@@ -116,39 +119,41 @@
         });
       });
     },
-    retrieveMarkers: function() {
-      // var markers = getMarkers();
+    retrieveMarkers: function(markers) {
+        console.log("retrieve: ", markers)
       var self = this;
       $.each(markers, function(index, item) {
-        var marker = new PointMarker(item)
+        var marker = new PointMarker(item);
         var googleMarker = marker.placeMarker(self.view.map);
-        global.allMarkers.push(googleMarker)
+        global.allMarkers.push(googleMarker);
       })
     },
+    getMarkers: function () {
+        var self = this;
+        $.ajax({
+            type: "GET",
+            url: "api/WayPoints",
+        })
+        .done(function (response) {
+                console.log("ajax :", response);
+                self.retrieveMarkers(response);
 
-
-      // $.ajax({
-      //   type: "POST",
-      //   url: "/api/location",
-      //   data: { Lat: marker.position.lat, Lng: marker.position.lng, url: }
-      // })
-      // .done(function( msg ) {
-      //   alert( "Data Saved: " + msg );
-      // });
-      // .fail(function() {
-      //   alert( "ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA" );
-      // })
+            })
+        .fail(function() {
+            alert("ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA");
+        });
+      //  return JSON array
+    },
   }
 
-  var allMarkers = []
 
-  var markers = [
-  {id:1,lat:-41.292936, lng:174.778219},
-  {id:2,lat:-41.282786, lng:174.766310},
-  {id:3,lat:-41.303866, lng:174.742127},
-  {id:4,lat:-41.311305, lng:174.818388},
-  {id:5,lat:-41.278163, lng:174.777446}
-  ]
+  //var markers = [
+  //{id:1,lat:-41.292936, lng:174.778219},
+  //{id:2,lat:-41.282786, lng:174.766310},
+  //{id:3,lat:-41.303866, lng:174.742127},
+  //{id:4,lat:-41.311305, lng:174.818388},
+  //{id:5,lat:-41.278163, lng:174.777446}
+  //]
 
         // renderMarkers();
         // map.setCenter(pos);
@@ -199,20 +204,19 @@
 
 
 
-  // var getMarkers = function() {
-  //   // $.ajax({
-  //   //   type: "GET",
-  //   //   url: "/api/getallmarkers",
-  //   // })
-  //   // .done(function( array ) {
-  //   //   $(array).each(new PointMarker());
-  //   // });
-  //   // .fail(function() {
-  //   //   alert( "ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA" );
-  //   // })
-    // return JSON array
-  // }
 
 
 
 
+
+// $.ajax({
+//   type: "POST",
+//   url: "/api/location",
+//   data: { Lat: marker.position.lat, Lng: marker.position.lng, url: }
+// })
+// .done(function( msg ) {
+//   alert( "Data Saved: " + msg );
+// });
+// .fail(function() {
+//   alert( "ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA" );
+// })
