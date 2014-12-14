@@ -13,17 +13,26 @@
   Controller.prototype = {
     addListeners: function() {
       var self = this;
-      // $("#drop").on('click', function(){
-      //   self.newPoint();
-      // });
-      $("#bottom-navigation").on('click', "#submit-point" ,function(){
+      $("#submit-point").on('click', function(){
         self.newPoint();
-        $("#bottom-navigation").html("<div id='content-link'><label name='url'>Content Link<label/><br><input name='url' type='text' id='enter-url'/><br><button id='save'>Save</button></div>")
+        $(this).slideToggle();
+        $("#content-link").slideToggle();
+      });
+      $("#save").on('click', function(){
+        $("#content-link").slideToggle();
+        $("#submit-point").slideToggle();
       });
 
-      $("#bottom-navigation").on('click', "#save", function(){
-        //make sure this saves --- maybe split out save method?
-        $("#bottom-navigation").html("<div id='submit-point'><button id='drop'>Add a Point</button></div>")});
+
+
+      // $("#bottom-navigation").on('click', "#submit-point" ,function(){
+      //   self.newPoint();
+      //   $("#bottom-navigation").html("<div id='content-link'><label name='url'>Content Link<label/><br><input name='url' type='text' id='enter-url'/><br><button id='save'>Save</button></div>")
+      // });
+
+      // $("#bottom-navigation").on('click', "#save", function(){
+      //   //make sure this saves --- maybe split out save method?
+      //   $("#bottom-navigation").html("<div id='submit-point'><button id='drop'>Add a Point</button></div>")});
     },
     positionRefresh: function() {
       setInterval(function(){
@@ -113,10 +122,11 @@
     //   alert( "ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA" );
     // })
     changeEnteredIcon: function(enteredMarker) {
-      enteredMarker.setIcon('http://www.broadwaybagels.ie/images/sesame.gif')
+      enteredMarker.setIcon('http://www.broadwaybagels.ie/images/sesame.gif');
     },
     openPoint: function(enteredMarker) {
       var self = this;
+      enteredMarker.setAnimation(google.maps.Animation.BOUNCE);
       google.maps.event.clearListeners(enteredMarker, 'click');
       var clickListener = google.maps.event.addListener(enteredMarker, 'click', function() {
         if (self.currentWindow != undefined){
@@ -127,6 +137,7 @@
           position: enteredMarker.position,
           content: "<a href='http://www.google.com'>Google!</a>"
         });
+        enteredMarker.setAnimation(null);
       });
     },
 
