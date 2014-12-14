@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -86,7 +87,7 @@ namespace ggak_final_project.Controllers
         //store lat and long and url in db
         [HttpPost]
         [ResponseType(typeof(WayPoint))]
-        public string PostWayPoint([FromBody]string input)
+        public WayPoint PostWayPoint([FromBody]string input)
         {
             WayPoint waypoint = JsonConvert.DeserializeObject<WayPoint>(input); //convert the input from Json to a WayPoint Object
 
@@ -96,23 +97,22 @@ namespace ggak_final_project.Controllers
             Dictionary<string, string> jsonToReturn = new Dictionary<string, string>();
             jsonToReturn.Add("Id","0");
             jsonToReturn.Add("URL","");
-            
+
+            WayPoint pointToReturn = new WayPoint();
             IQueryable<WayPoint> allPoints = db.WayPoints; //get all points from db
           
             foreach (WayPoint point in allPoints)
             {
                 if (point.Lat.Equals(checkLat) && point.Long.Equals(checkLong))
                 {
-
-                    jsonToReturn["Id"] = point.Id.ToString();
-                    jsonToReturn["URL"] = point.URL;
+                    pointToReturn = point;
                     break;
 
                 }
             }
 
-            return JsonConvert.SerializeObject(jsonToReturn);
-            
+            return pointToReturn; 
+
 
         }
 
