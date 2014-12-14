@@ -30,22 +30,28 @@ namespace ggak_final_project.Controllers
 
         // GET: api/WayPoints/5
         [ResponseType(typeof(WayPoint))]
-        public String GetWayPoint(String lat, String lng)
-            //takes a lat and a long as params
-            //checks to see if that lat and long is in the database *ALEX LOCATION CODE HERE*
+        public WayPoint GetWayPoint(float lat, float lng){
+             float checkLat = lat; //get the Lat and Lng from the Json object
+            float checklng = lng;
             
-        {
-            //Debug.WriteLine(input);
-            ////return id and url IF the lat and long is in the DB
-            //WayPoint wayPoint = db.WayPoints.Find(id);
-            //if (wayPoint == null)
-            //{
-            //    return NotFound();
-            //}
+            Dictionary<string, string> jsonToReturn = new Dictionary<string, string>();
+            jsonToReturn.Add("Id","0");
+            jsonToReturn.Add("URL","");
 
-            //return Ok(wayPoint);
+            WayPoint pointToReturn = new WayPoint();
+            IQueryable<WayPoint> allPoints = db.WayPoints; //get all points from db
           
-            return lat + " " + lng;
+            foreach (WayPoint point in allPoints)
+            {
+                if (point.Lat.Equals(checkLat) && point.Lng.Equals(checklng))
+                {
+                    pointToReturn = point;
+                    break;
+
+                }
+            }
+
+            return pointToReturn; 
         }
 
         // PUT: api/WayPoints/5
@@ -91,8 +97,8 @@ namespace ggak_final_project.Controllers
         {
             WayPoint waypoint = JsonConvert.DeserializeObject<WayPoint>(input); //convert the input from Json to a WayPoint Object
 
-            float checkLat = waypoint.Lat; //get the Lat and Long from the Json object
-            float checkLong = waypoint.Long;
+            float checkLat = waypoint.Lat; //get the Lat and Lng from the Json object
+            float checklng = waypoint.Lng;
             
             Dictionary<string, string> jsonToReturn = new Dictionary<string, string>();
             jsonToReturn.Add("Id","0");
@@ -103,7 +109,7 @@ namespace ggak_final_project.Controllers
           
             foreach (WayPoint point in allPoints)
             {
-                if (point.Lat.Equals(checkLat) && point.Long.Equals(checkLong))
+                if (point.Lat.Equals(checkLat) && point.Lng.Equals(checklng))
                 {
                     pointToReturn = point;
                     break;
