@@ -92,17 +92,27 @@ namespace ggak_final_project.Controllers
 
             float checkLat = waypoint.Lat; //get the Lat and Long from the Json object
             float checkLong = waypoint.Long;
-
+            
+            Dictionary<string, string> jsonToReturn = new Dictionary<string, string>();
+            jsonToReturn.Add("Id","0");
+            jsonToReturn.Add("URL","");
+            
             IQueryable<WayPoint> allPoints = db.WayPoints; //get all points from db
-
+          
             foreach (WayPoint point in allPoints)
             {
                 if (point.Lat.Equals(checkLat) && point.Long.Equals(checkLong))
                 {
-                    return "true";
+
+                    jsonToReturn["Id"] = point.Id.ToString();
+                    jsonToReturn["URL"] = point.URL;
+                    break;
+
                 }
             }
-            return "cat";
+
+            return JsonConvert.SerializeObject(jsonToReturn);
+            
 
         }
 
