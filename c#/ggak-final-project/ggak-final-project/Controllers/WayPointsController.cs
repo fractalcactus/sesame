@@ -96,7 +96,7 @@ namespace ggak_final_project.Controllers
         //store lat and long and url in db
         [HttpPost]
         [ResponseType(typeof(WayPoint))]
-        public WayPoint PostWayPoint([FromBody]string input)
+        public WayPoint PostWayPoint(string input) //[FromBody] before string previously 
         {
             WayPoint waypoint = JsonConvert.DeserializeObject<WayPoint>(input); //convert the input from Json to a WayPoint Object
 
