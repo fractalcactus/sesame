@@ -30,7 +30,7 @@ This works like a GET, but needs to be a post so it can take a JSON. Takes a lat
 
 *expects:*
 ```json
-'{"Lat": "3", "Long":"4"}'
+'{"Lat": "3", "Lng":"4"}'
 ```
 *Success:*
 ```json
