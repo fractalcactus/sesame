@@ -150,18 +150,6 @@
   {id:5,lat:-41.278163, lng:174.777446}
   ]
 
-        // renderMarkers();
-        // map.setCenter(pos);
-
-    // Response if there is an error getting the geolocation
-
-
-
-    // Browser doesn't support Geolocation
-
-
-  // // Error flags if there is a problem
-
   // function handleNoGeolocation(errorFlag) {
   //   if (errorFlag) {
   //     var content = 'Error: The Geolocation service failed.';
@@ -195,9 +183,6 @@
   //   //   alert( "ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA" );
   //   // })
   // }
-
-
-
 
   // var getMarkers = function() {
   //   // $.ajax({
