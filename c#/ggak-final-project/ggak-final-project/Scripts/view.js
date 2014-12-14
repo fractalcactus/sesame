@@ -19,11 +19,11 @@ View.prototype = {
     })
   },
   addMarker: function() {
-  var self = this;
-  var mapCenter = new google.maps.LatLng(-41.295291, 174.773071);
-  var marker = new google.maps.Marker({
-      position: mapCenter,
-      map: self.map,
+      var self = this;
+      console.log(self.map.getCenter());
+      var marker = new google.maps.Marker({
+        position: self.map.getCenter(),
+        map: self.map,
         draggable: true,
         animation: google.maps.Animation.DROP,
       title:"This a new marker!",
