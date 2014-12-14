@@ -86,14 +86,17 @@
 
       $("#save").on('click', function(){
         var point = {
-          lat: latitude,
-          lng: longitude,
-          url: $("#enter-url").val(),
-          id: 22
+          Lat: latitude,
+          Lng: longitude,
+          URL: $("#enter-url").val(),
         };
-        var savedMarker = new PointMarker(point);
-        savedMarker.placeMarker(self.view.map)
-        marker.setMap(null);
+        self.savePoint(point);
+
+
+        
+        //var savedMarker = new PointMarker(point);
+        //savedMarker.placeMarker(self.view.map)
+        //marker.setMap(null);
         // var saveMarker = self.view.addMarker(point);
         // saveMarker.placeMarker(self.view.map);
       });
@@ -104,6 +107,20 @@
       //   global.allMarkers.push(googleMarker)
       // })
 
+    },
+    savePoint: function (point) {
+        var saveThisPoint = JSON.stringify(point);
+        $.ajax({
+            type: "POST",
+            url: "api/WayPoints",
+            data: saveThisPoint
+        })
+        .done(function (response) {
+            alert("MVP+++")
+        })
+        .fail(function () {
+            alert("Checking database failed");
+        });
     },
     changeEnteredIcon: function(enteredMarker) {
       enteredMarker.setIcon('http://www.broadwaybagels.ie/images/sesame.gif')
