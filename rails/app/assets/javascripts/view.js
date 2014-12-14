@@ -20,9 +20,9 @@ View.prototype = {
   },
   addMarker: function() {
   var self = this;
-  var mapCenter = new google.maps.LatLng(-41.295291, 174.773071);
   var marker = new google.maps.Marker({
-      position: mapCenter,
+    //changed get center 2 adjust
+      position: self.map.getCenter(),
       map: self.map,
         draggable: true,
         animation: google.maps.Animation.DROP,
@@ -32,10 +32,3 @@ View.prototype = {
   return marker;
   }
 }
-
-
-        // var infowindow = new google.maps.InfoWindow({
-        //   map: this.view.map,
-        //   position: pos,
-        //   content: "<a href='http://www.google.com'>Google!</a>"
-        // });
