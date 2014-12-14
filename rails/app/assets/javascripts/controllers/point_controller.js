@@ -3,11 +3,18 @@
     this.getUserLocation();
     this.retrieveMarkers();
     this.positionRefresh();
+    this.addListeners();
   }
 
   var global = this;
 
   Controller.prototype = {
+    addListeners: function() {
+      var self = this;
+      $("#drop").on('click', function(){
+        self.newPoint();
+      });
+    },
     positionRefresh: function() {
       setInterval(function(){
         this.getUserLocation()
@@ -51,6 +58,38 @@
         }
       });
     },
+    newPoint: function() {
+      var self = this;
+      var marker = this.view.addMarker();
+      var latitude = marker.getPosition().lat();
+      var longitude = marker.getPosition().lat();
+      google.maps.event.addListener(marker, 'dragend', function (event) {
+        latitude = marker.getPosition().lat();
+        longitude = marker.getPosition().lng();
+      });
+
+      $("#save").on('click', function(){
+        var point = {
+          lat: latitude,
+          lng: longitude,
+          url: $("#enter-url").val(),
+          id: 22
+        };
+        var savedMarker = new PointMarker(point);
+        savedMarker.placeMarker(self.view.map)
+        marker.setMap(null);
+        // var saveMarker = self.view.addMarker(point);
+        // saveMarker.placeMarker(self.view.map);
+      });
+
+      // $.each(markers, function(index, item) {
+      //   var marker = new PointMarker(item)
+      //   var googleMarker = marker.placeMarker(self.view.map);
+      //   global.allMarkers.push(googleMarker)
+      // })
+
+    },
+
 
     // $.ajax({
     //   type: "GET",
@@ -85,8 +124,20 @@
         var googleMarker = marker.placeMarker(self.view.map);
         global.allMarkers.push(googleMarker)
       })
-    }
+    },
 
+
+      // $.ajax({
+      //   type: "POST",
+      //   url: "/api/location",
+      //   data: { Lat: marker.position.lat, Lng: marker.position.lng, url: }
+      // })
+      // .done(function( msg ) {
+      //   alert( "Data Saved: " + msg );
+      // });
+      // .fail(function() {
+      //   alert( "ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA" );
+      // })
   }
 
   var allMarkers = []
@@ -108,33 +159,6 @@
 
     // Browser doesn't support Geolocation
 
-
-  //   function addMarker() { //function that will add markers on button click
-  //     var mapCenter = new google.maps.LatLng(-41.295291, 174.773071);
-  //     var marker = new google.maps.Marker({
-  //         position: mapCenter,
-  //         map: map,
-  //           draggable:true,
-  //           animation: google.maps.Animation.DROP,
-  //         title:"This a new marker!",
-  //       icon: "http://maps.google.com/mapfiles/ms/micons/blue.png"
-  //     });
-
-  //     // $.ajax({
-  //     //   type: "POST",
-  //     //   url: "/api/location",
-  //     //   data: { Lat: marker.position.lat, Lng: marker.position.lng, url: }
-  //     // })
-  //     // .done(function( msg ) {
-  //     //   alert( "Data Saved: " + msg );
-  //     // });
-  //     // .fail(function() {
-  //     //   alert( "ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA" );
-  //     // })
-
-  //   }
-  //   $("#drop").on('click', addMarker());
-  // }
 
   // // Error flags if there is a problem
 
