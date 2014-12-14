@@ -13,9 +13,17 @@
   Controller.prototype = {
     addListeners: function() {
       var self = this;
-      $("#drop").on('click', function(){
+      // $("#drop").on('click', function(){
+      //   self.newPoint();
+      // });
+      $("#bottom-navigation").on('click', "#submit-point" ,function(){
         self.newPoint();
+        $("#bottom-navigation").html("<div id='content-link'><label name='url'>Content Link<label/><br><input name='url' type='text' id='enter-url'/><br><button id='save'>Save</button></div>")
       });
+
+      $("#bottom-navigation").on('click', "#save", function(){
+        //make sure this saves --- maybe split out save method?
+        $("#bottom-navigation").html("<div id='submit-point'><button id='drop'>Add a Point</button></div>")});
     },
     positionRefresh: function() {
       setInterval(function(){
