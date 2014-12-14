@@ -21,13 +21,15 @@ namespace ggak_final_project.Controllers
     public class WayPointsController : ApiController
     {
         private WorldPlaygroundDBContext db = new WorldPlaygroundDBContext();
-
+     
+        //gets all the WayPoints
         //GET: api/WayPoints
         public IQueryable<WayPoint> GetWayPoints()
         {
             return db.WayPoints;
         }
 
+        //a check method to see if you're at a WayPoint
         // GET: api/WayPoints/5
         //[ResponseType(typeof(WayPoint))]
         public WayPoint GetWayPoint(string lat, string lng)
@@ -92,36 +94,55 @@ namespace ggak_final_project.Controllers
 
         // POST: api/WayPoints
         //store lat and long and url in db
-        //[HttpPost]
-        //[ResponseType(typeof(WayPoint))]
-        //public WayPoint PostWayPoint([FromBody]string input)
-        //{
-        //    WayPoint waypoint = JsonConvert.DeserializeObject<WayPoint>(input); //convert the input from Json to a WayPoint Object
-
-        //    float checkLat = waypoint.Lat; //get the Lat and Lng from the Json object
-        //    float checklng = waypoint.Lng;
-            
-        //    Dictionary<string, string> jsonToReturn = new Dictionary<string, string>();
-        //    jsonToReturn.Add("Id","0");
-        //    jsonToReturn.Add("URL","");
-
-        //    WayPoint pointToReturn = new WayPoint();
-        //    IQueryable<WayPoint> allPoints = db.WayPoints; //get all points from db
-          
-        //    foreach (WayPoint point in allPoints)
-        //    {
-        //        if (point.Lat.Equals(checkLat) && point.Lng.Equals(checklng))
-        //        {
-        //            pointToReturn = point;
-        //            break;
-
-        //        }
-        //    }
-
-        //    return pointToReturn;sfdfdf 
+        [HttpPost]
+        [ResponseType(typeof(WayPoint))]
+        public WayPoint PostWayPoint([FromBody]string input)
+        {
+            WayPoint waypoint = JsonConvert.DeserializeObject<WayPoint>(input); //convert the input from Json to a WayPoint Object
 
 
-        //}
+            //WayPoint newWayPoint = new WayPoint();
+            //newWayPoint.Lat = waypoint.Lat;
+            //newWayPoint.Lng = waypoint.Lng;
+            //newWayPoint.URL = waypoint.URL;
+
+            db.WayPoints.Add(waypoint);
+            db.SaveChanges();
+            return waypoint;
+            //WayPoint pointToReturn = new WayPoint();
+            //IQueryable<WayPoint> allPoints = db.WayPoints; //get all points from db
+            //foreach (WayPoint point in allPoints)
+            //{
+            //    if (point.Lat.Equals(newWayPoint.Lat) && point.Lng.Equals(newWayPoint.Lng))
+            //    {
+            //        pointToReturn = point;
+            //        break;
+
+            //    }
+            //}
+
+            //return pointToReturn;
+            //Dictionary<string, string> jsonToReturn = new Dictionary<string, string>();
+            //jsonToReturn.Add("Id","0");
+            //jsonToReturn.Add("URL","");
+
+            //WayPoint pointToReturn = new WayPoint();
+            //IQueryable<WayPoint> allPoints = db.WayPoints; //get all points from db
+
+            //foreach (WayPoint point in allPoints)
+            //{
+            //    if (point.Lat.Equals(checkLat) && point.Lng.Equals(checklng))
+            //    {
+            //        pointToReturn = point;
+            //        break;
+
+            //    }
+            //}
+
+            //return pointToReturn;sfdfdf 
+
+
+        }
 
         // DELETE: api/WayPoints/5
         [ResponseType(typeof(WayPoint))]
