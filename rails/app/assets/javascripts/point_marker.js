@@ -2,6 +2,7 @@
     this.lat = item.lat;
     this.lng = item.lng;
     this.point_id = item.id;
+    this.url = item.url
   }
   PointMarker.prototype = {
     placeMarker: function(map) {

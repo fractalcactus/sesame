@@ -14,8 +14,22 @@ View.prototype = {
       this.userMarker = new google.maps.Marker({
       position: pos,
       map: this.map,
-      title: "User Marker"
+      title: "User Marker",
+      icon: 'http://i.imgur.com/usnngl1.png'
     })
+  },
+  addMarker: function() {
+  var self = this;
+  var mapCenter = new google.maps.LatLng(-41.295291, 174.773071);
+  var marker = new google.maps.Marker({
+      position: mapCenter,
+      map: self.map,
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+      title:"This a new marker!",
+    icon: "http://maps.google.com/mapfiles/ms/micons/blue.png"
+    });
+  return marker;
   }
 }
 
