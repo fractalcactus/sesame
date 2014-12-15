@@ -14,7 +14,8 @@ var PointMarker = function (item) {
         var newMarker = new google.maps.Marker({
             position: pointPosition,
             map: map,
-            title: string
+            title: string,
+            icon: "/Content/fixedmarker.svg"
         });
         return newMarker;
     }
