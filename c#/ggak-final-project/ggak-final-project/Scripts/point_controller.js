@@ -4,18 +4,27 @@
     this.getMarkers();
     this.positionRefresh();
     this.addListeners();
+    this.lastWindow;
     this.search();
   }
 
   var global = this;
+  var draggablePoint;
+  var temporaryMarker  
   var allMarkers = [];
 
   Controller.prototype = {
-    addListeners: function() {
-      var self = this;
-      $("#drop").on('click', function(){
-        self.newPoint();
-      });
+    addListeners: function () {
+        var self = this;
+        $("#bottom-navigation").on('click', "#submit-point", function () {
+            self.newPoint();
+            $("#bottom-navigation").html("<div id='content-link'><label name='url'>Content Link<label/><br><input name='url' type='text' id='enter-url'/><br><button id='save'>Save</button></div>")
+        });
+
+        $("#bottom-navigation").on('click', "#save", function () {
+            self.savePoint(draggablePoint);
+            $("#bottom-navigation").html("<div id='submit-point'><button id='drop'>Add a Point</button></div>")
+        });
     },
     positionRefresh: function() {
       setInterval(function(){
@@ -79,28 +88,27 @@
       var self = this;
       var marker = this.view.addMarker();
       var latitude = marker.getPosition().lat();
-      var longitude = marker.getPosition().lat();
+      var longitude = marker.getPosition().lng();
       google.maps.event.addListener(marker, 'dragend', function (event) {
         latitude = marker.getPosition().lat();
         longitude = marker.getPosition().lng();
       });
-
-      $("#save").on('click', function(){
-        var point = {
+      draggablePoint = {
           Lat: latitude,
           Lng: longitude,
           URL: $("#enter-url").val(),
-        };
-        self.savePoint(point);
+      };
+      //$("#save").on('click', function(){
+
 
 
         
-        //var savedMarker = new PointMarker(point);
-        //savedMarker.placeMarker(self.view.map)
-        //marker.setMap(null);
-        // var saveMarker = self.view.addMarker(point);
-        // saveMarker.placeMarker(self.view.map);
-      });
+      //  //var savedMarker = new PointMarker(point);
+      //  //savedMarker.placeMarker(self.view.map)
+      //  //marker.setMap(null);
+      //  //var saveMarker = self.view.addMarker(point);
+      //  //saveMarker.placeMarker(self.view.map);
+      //});
 
       // $.each(markers, function(index, item) {
       //   var marker = new PointMarker(item)
@@ -118,6 +126,11 @@
         })
         .done(function (response) {
             alert("MVP+++")
+              //var savedMarker = new PointMarker(response);
+              //savedMarker.placeMarker(self.view.map)
+              //marker.setMap(null);
+              //var saveMarker = self.view.addMarker(point);
+              //saveMarker.placeMarker(self.view.map);
         })
         .fail(function () {
             alert("Checking database failed");
@@ -126,16 +139,19 @@
     changeEnteredIcon: function(enteredMarker) {
       enteredMarker.setIcon('http://www.broadwaybagels.ie/images/sesame.gif')
     },
-    openPoint: function(enteredMarker) {
-      var self = this;
-      google.maps.event.clearListeners(enteredMarker, 'click');
-      var clickListener = google.maps.event.addListener(enteredMarker, 'click', function() {
-        var infowindow = new google.maps.InfoWindow({
-          map: self.view.map,
-          position: enteredMarker.position,
-          content: "<a href='http://www.google.com'>Google!</a>"
+    openPoint: function (enteredMarker) {
+        var self = this;
+        google.maps.event.clearListeners(enteredMarker, 'click');
+        var clickListener = google.maps.event.addListener(enteredMarker, 'click', function () {
+            if (self.currentWindow != undefined) {
+                self.currentWindow.close();
+            }
+            self.currentWindow = new google.maps.InfoWindow({
+                map: self.view.map,
+                position: enteredMarker.position,
+                content: "<a href='http://www.google.com'>Google!</a>"
+            });
         });
-      });
     },
     retrieveMarkers: function(markers) {
         console.log("retrieve: ", markers)

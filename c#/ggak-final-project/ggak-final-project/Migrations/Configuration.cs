@@ -12,6 +12,7 @@ namespace ggak_final_project.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(ggak_final_project.Models.WorldPlaygroundDBContext context)
