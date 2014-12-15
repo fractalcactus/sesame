@@ -2,16 +2,22 @@
     ViewBag.Title = "Home Page";
 }
 
-<div id="header">
-    <h1>Sesame</h1>
+<div id="header" class="green">
+    <div id="logo-box">
+        <img src="~/Content/logo.svg" id="logo" />
+    </div>
+    <input id="pac-input" class="text-box" type="text" placeholder="Change location" autofocus>
 </div>
-<input id="pac-input" class="controls" type="text" placeholder="Search Box">
 <div id="map-canvas">
 </div>
 
 <div id="bottom-navigation">
     <div id="submit-point">
-        <button id="drop">Add a Point</button>
+        <div id="drop" class="button pink">Add a Point</div>
+    </div>
+    <div id='content-link'>
+        <input placeholder="Insert link" name='url' type='text' id='enter-url' /><br>
+        <div id='save' class="button pink">Save</div>
     </div>
 </div>
 

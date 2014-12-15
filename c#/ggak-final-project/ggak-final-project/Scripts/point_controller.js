@@ -16,14 +16,15 @@
   Controller.prototype = {
     addListeners: function () {
         var self = this;
-        $("#bottom-navigation").on('click', "#submit-point", function () {
+        $("#submit-point").on('click', function () {
             self.newPoint();
-            $("#bottom-navigation").html("<div id='content-link'><label name='url'>Content Link<label/><br><input name='url' type='text' id='enter-url'/><br><button id='save'>Save</button></div>")
+            $(this).slideToggle();
+            $("#content-link").slideToggle();
         });
-
-        $("#bottom-navigation").on('click', "#save", function () {
+        $("#save").on('click', function () {
+            $("#content-link").slideToggle();
+            $("#submit-point").slideToggle();
             self.savePoint(draggablePoint);
-            $("#bottom-navigation").html("<div id='submit-point'><button id='drop'>Add a Point</button></div>")
         });
     },
     positionRefresh: function() {
@@ -115,7 +116,7 @@
       //   var marker = new PointMarker(item)
       //   var googleMarker = marker.placeMarker(self.view.map);
       //   global.allMarkers.push(googleMarker)
-      // })//////////////////////////////////////////////////////
+      // })
 
     },
     savePoint: function (point) {
@@ -135,10 +136,11 @@
         });
     },
     changeEnteredIcon: function(enteredMarker) {
-      enteredMarker.setIcon('http://www.broadwaybagels.ie/images/sesame.gif')
+        enteredMarker.setIcon("/Content/openmarker.svg");
     },
     openPoint: function (enteredMarker) {
         var self = this;
+        enteredMarker.setAnimation(google.maps.Animation.BOUNCE);
         google.maps.event.clearListeners(enteredMarker, 'click');
         var clickListener = google.maps.event.addListener(enteredMarker, 'click', function () {
             if (self.currentWindow != undefined) {
@@ -149,6 +151,7 @@
                 position: enteredMarker.position,
                 content: "<a href='http://www.google.com'>Google!</a>"
             });
+            enteredMarker.setAnimation(null);
         });
     },
     retrieveMarkers: function(markers) {
@@ -182,7 +185,7 @@
         var self = this;
         var markers = [];
         var input = (document.getElementById('pac-input'));
-        self.view.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        //self.view.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
         var searchBox = new google.maps.places.SearchBox(input);
 
