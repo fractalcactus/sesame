@@ -14,7 +14,8 @@
       var newMarker = new google.maps.Marker({
         position: pointPosition,
         map: map,
-        title: string
+        title: string,
+        icon: "https://dl-web.dropbox.com/get/fixedmarker.svg?_subject_uid=126418071&w=AAApG2fvJRpJa_GEdu1R07nFk_3tDEOZBYRtfQ9yv4qyrQ",
       })
     return newMarker    }
   }

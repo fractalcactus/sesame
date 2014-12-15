@@ -122,7 +122,7 @@
     //   alert( "ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA" );
     // })
     changeEnteredIcon: function(enteredMarker) {
-      enteredMarker.setIcon('http://www.broadwaybagels.ie/images/sesame.gif');
+      enteredMarker.setIcon('https://dl-web.dropbox.com/get/openmarker.svg?_subject_uid=126418071&w=AADvidUyu6AXX9hhdwDXS1-fQeL4qlq2qDKJ8pGHX8mB6Q');
     },
     openPoint: function(enteredMarker) {
       var self = this;

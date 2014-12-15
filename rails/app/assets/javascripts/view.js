@@ -19,7 +19,7 @@ View.prototype = {
       position: pos,
       map: this.map,
       title: "User Marker",
-      icon: 'http://i.imgur.com/usnngl1.png'
+      icon: 'https://dl-web.dropbox.com/get/usermarker.svg?_subject_uid=126418071&w=AAA8MFbGdXKz7uxAqtk-KSfyog3MSdBTcRbxSi_3wQCGAg'
     })
   },
   addMarker: function() {
@@ -31,7 +31,7 @@ View.prototype = {
         draggable: true,
         animation: google.maps.Animation.DROP,
       title:"This a new marker!",
-    icon: "http://maps.google.com/mapfiles/ms/micons/blue.png"
+    icon: "https://dl-web.dropbox.com/get/newmarker.svg?_subject_uid=126418071&w=AADU0U33XDfNPO9BlFx17dz_S_DCBD4s144_aOjGiNaWVA"
     });
   return marker;
   }
