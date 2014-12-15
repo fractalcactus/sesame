@@ -94,8 +94,8 @@
         longitude = marker.getPosition().lng();
       });
       draggablePoint = {
-          Lat: latitude,
-          Lng: longitude,
+          Latitude: latitude,
+          Longitude: longitude,
           URL: $("#enter-url").val(),
       };
       //$("#save").on('click', function(){
@@ -119,19 +119,20 @@
     },
     savePoint: function (point) {
         var saveThisPoint = JSON.stringify(point);
+        console.log('point', point);
         $.ajax({
             type: "POST",
             url: "api/WayPoints",
-            data: saveThisPoint
+            data: point
         })
         .done(function (response) {
-            alert("MVP+++")
-              //var savedMarker = new PointMarker(response);
-              //savedMarker.placeMarker(self.view.map)
-              //marker.setMap(null);
-              //var saveMarker = self.view.addMarker(point);
-              //saveMarker.placeMarker(self.view.map);
-        })
+                alert("MVP+++");
+                //var savedMarker = new PointMarker(response);
+                //savedMarker.placeMarker(self.view.map)
+                //marker.setMap(null);
+                //var saveMarker = self.view.addMarker(point);
+                //saveMarker.placeMarker(self.view.map);
+            })
         .fail(function () {
             alert("Checking database failed");
         });
