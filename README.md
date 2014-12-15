@@ -44,6 +44,27 @@ This API is written in C# and consumed by the front end JS
 *Error:*
 `Status Code - 400`
 
+#### GET api/?id=x
+
+*Description:*
+ Takes a single marker ID and returns that marker as a JSON object.
+
+*expects:*
+```id parameter
+"api/WayPoints?id="markerID
+```
+*Success:*
+```json
+{
+    "Id": 3,
+    "Lat": 3,
+    "Lng": 0,
+    "URL": "https://www.youtube.com/watch?v=JIOCc0tfoqA"
+}
+```
+*Error:*
+`Status Code - 400`
+
 #### GET api/WayPoints
 
 *Description:*
