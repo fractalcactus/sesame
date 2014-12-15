@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ggak-final-project</name>
+    </assembly>
+    <members>
+        <member name="M:ggak_final_project.Controllers.CheckPointController.Get">
+            <summary>
+            This is the summary of this method
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ggak_final_project.Controllers.CheckPointController.Get(System.Int32)">
+            <summary>
+            Creates checkpoint with a specific Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ggak_final_project.Controllers.CheckPointController.Post(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:ggak_final_project.Controllers.CheckPointController.Put(System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:ggak_final_project.Controllers.CheckPointController.Delete(System.Int32)">
+            <summary>
+            Deletes checkpoint from the map
+            </summary>
+            <param name="id"></param>
+        </member>
+    </members>
+</doc>
