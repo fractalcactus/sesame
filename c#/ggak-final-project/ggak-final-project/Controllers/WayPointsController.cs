@@ -24,9 +24,10 @@ namespace ggak_final_project.Controllers
      
         //gets all the WayPoints
         //GET: api/WayPoints
-        public IQueryable<WayPoint> GetWayPoints()
+        public IEnumerable<WayPoint> GetWayPoints()
         {
-            return db.WayPoints;
+            var q =  db.WayPoints.ToList();
+            return q;
         }
 
         //a check method to see if you're at a WayPoint
@@ -100,7 +101,7 @@ namespace ggak_final_project.Controllers
         {
            // WayPoint waypoint = JsonConvert.DeserializeObject<WayPoint>(input); //convert the input from Json to a WayPoint Object
 
-
+            waypoint.URL = "Moar COFFFFF333333333; please :)";
 
             db.WayPoints.Add(waypoint);
             db.SaveChanges();
