@@ -5,6 +5,8 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
+    <!-- Add Varela font link -->
+    <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
 
@@ -14,19 +16,22 @@
 
   </head>
   <body>
-    <div id="header"><h1>Sesame Playground</h1></div>
-    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <div id="header" class="green">
+      <div id="logo-box">
+        <img src="https://dl-web.dropbox.com/get/logo.svg?_subject_uid=126418071&w=AADKG5HMWh2VQDhxTwzSKxuUB2lch3u6IC2bosGoEAv3UA" id="logo"/>
+      </div>
+      <input id="pac-input" class="text-box" type="text" placeholder="Change location" autofocus>
+    </div>
   <div id="map-canvas">
   </div>
 
     <div id="bottom-navigation">
       <div id="submit-point">
-          <button id="drop">Add a Point</button>
+          <div id="drop" class="button pink">Add a Point</div>
       </div>
       <div id='content-link'>
-          <label name='url'>Content Link<label/><br>
-          <input name='url' type='text' id='enter-url'/><br>
-          <button id='save'>Save</button>
+          <input placeholder="Insert link" name='url' type='text' id='enter-url'/><br>
+          <div id='save' class="button pink">Save</div>
       </div>
     </div>
 

@@ -169,7 +169,7 @@
       var self = this;
       var markers = [];
       var input = (document.getElementById('pac-input'));
-      self.view.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+      // self.view.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
 
       var searchBox = new google.maps.places.SearchBox(input);
 
