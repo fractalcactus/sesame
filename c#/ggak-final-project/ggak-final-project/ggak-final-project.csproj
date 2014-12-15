@@ -236,7 +236,7 @@
     <Compile Include="Models\WayPoint.cs" />
     <Compile Include="Models\WorldPlaygroundDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\RadiusController.cs" />
+    <Compile Include="BusinessLogic\Radius.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
