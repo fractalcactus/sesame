@@ -10,7 +10,7 @@
 
   var global = this;
   var draggablePoint;
-  var temporaryMarker  
+  var temporaryMarker;  
   var allMarkers = [];
 
   Controller.prototype = {
@@ -86,18 +86,19 @@
     },
     newPoint: function() {
       var self = this;
-      var marker = this.view.addMarker();
-      var latitude = marker.getPosition().lat();
-      var longitude = marker.getPosition().lng();
-      google.maps.event.addListener(marker, 'dragend', function (event) {
-        latitude = marker.getPosition().lat();
-        longitude = marker.getPosition().lng();
+      temporaryMarker = this.view.addMarker();
+      var latitude = temporaryMarker.getPosition().lat();
+      var longitude = temporaryMarker.getPosition().lng();
+      console.log("inbternalmarker", temporaryMarker)
+      google.maps.event.addListener(temporaryMarker, 'dragend', function (event) {
+          latitude = temporaryMarker.getPosition().lat();
+          longitude = temporaryMarker.getPosition().lng();
+        draggablePoint = {
+            Latitude: latitude,
+            Longitude: longitude,
+            URL: $("#enter-url").val(),
+        };
       });
-      draggablePoint = {
-          Latitude: latitude,
-          Longitude: longitude,
-          URL: $("#enter-url").val(),
-      };
       //$("#save").on('click', function(){
 
 
@@ -118,20 +119,16 @@
 
     },
     savePoint: function (point) {
-        var saveThisPoint = JSON.stringify(point);
-        console.log('point', point);
+        var self = this;
         $.ajax({
             type: "POST",
             url: "api/WayPoints",
             data: point
         })
         .done(function (response) {
-                alert("MVP+++");
-                //var savedMarker = new PointMarker(response);
-                //savedMarker.placeMarker(self.view.map)
-                //marker.setMap(null);
-                //var saveMarker = self.view.addMarker(point);
-                //saveMarker.placeMarker(self.view.map);
+                var savedMarker = new PointMarker(response);
+                savedMarker.placeMarker(self.view.map)
+                temporaryMarker.setMap(null);
             })
         .fail(function () {
             alert("Checking database failed");

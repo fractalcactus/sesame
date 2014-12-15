@@ -1,10 +1,10 @@
 var PointMarker = function (item) {
-    console.log(item)
-    this.lat = parseFloat(item.Lat);
-    this.lng = parseFloat(item.Lng);
+    console.log('PointMarker init', item);
+    this.lat = parseFloat(item.Latitude);
+    this.lng = parseFloat(item.Longitude);
     this.point_id = parseFloat(item.Id);
-    this.url = item.URL
-  }
+    this.url = item.URL;
+}
   PointMarker.prototype = {
     placeMarker: function(map) {
       console.log("Inside placing marker")
