@@ -7,7 +7,18 @@ namespace ggak_final_project.BusinessLogic
 {
     public class Radius
     {
-        private double radiusThreshold = 0.001; //fraction of a degree
+        private double radiusThreshold; //fraction of a degree
+
+        public Radius()
+        {
+            radiusThreshold = 0.001;
+        }
+
+        public Radius(double radiusThreshold) //This threshold is in degrees of Latitude & Longitude
+        {
+            this.radiusThreshold = radiusThreshold;
+        }
+
         private double accuracy { get { return radiusThreshold / 100.0; } } //1% of the threshold
 
         private double Pythag(double pointOne, double pointTwo)

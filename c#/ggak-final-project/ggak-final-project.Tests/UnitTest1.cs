@@ -88,8 +88,8 @@ namespace ggak_final_project.Tests
             Radius radius = new Radius();
             double firstLat = -41.288402;
             double firstLong = 174.776165;
-            double secondLat = firstLat - (radusThreshold * Math.Sin(45));
-            double secondLong = firstLong - (radusThreshold * Math.Sin(45));
+            double secondLat = firstLat - (radusThreshold * Math.Sin(45 * (Math.PI / 180)));
+            double secondLong = firstLong - (radusThreshold * Math.Sin(45 * (Math.PI / 180)));
 
             //act
             bool actual = radius.AreTwoPointsClose(firstLat, firstLong, secondLat, secondLong);
@@ -159,8 +159,8 @@ namespace ggak_final_project.Tests
             Radius radius = new Radius();
             double firstLat = -41.288402;
             double firstLong = 174.776165;
-            double secondLat = firstLat + (radusThreshold * Math.Sin(45));
-            double secondLong = firstLong + (radusThreshold * Math.Sin(45));
+            double secondLat = firstLat + (radusThreshold * Math.Sin(45 * (Math.PI / 180)));
+            double secondLong = firstLong + (radusThreshold * Math.Sin(45 *(Math.PI / 180)));
 
             //act
             bool actual = radius.AreTwoPointsClose(firstLat, firstLong, secondLat, secondLong);
