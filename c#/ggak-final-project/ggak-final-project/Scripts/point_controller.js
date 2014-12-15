@@ -115,7 +115,7 @@
       //   var marker = new PointMarker(item)
       //   var googleMarker = marker.placeMarker(self.view.map);
       //   global.allMarkers.push(googleMarker)
-      // })
+      // })//////////////////////////////////////////////////////
 
     },
     savePoint: function (point) {
