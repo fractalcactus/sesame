@@ -37,12 +37,12 @@ View.prototype = {
   },
   addPopup: function (enteredMarker) {
       console.log(enteredMarker);
-      var content = enteredMarker.content ? enteredMarker.content : 'blabvlablabla';
+      var content = enteredMarker.content ? enteredMarker.content : 'There is no content to display';
         var self = this;
         if (content.match(/(soundcloud)/i)) {
             content = "<div class='info-window'><a href='" + content + "'><img width='50px' src='https://dl-web.dropbox.com/get/play.svg?_subject_uid=126418071&w=AAD4DNBzmDMykdT1LooMbHoZG6x7rJip3lXxSoBxLgLPEA'/><p>Play Song</p></a></div>"
         }
-        else if (content.match(/(youtube)/i)) {
+        else if (content.match(/(youtu)/i)) {
             content = "<div class='info-window'><a href='" + content + "'><img  width='50px' src='https://dl-web.dropbox.com/get/play.svg?_subject_uid=126418071&w=AAD4DNBzmDMykdT1LooMbHoZG6x7rJip3lXxSoBxLgLPEA'/><p>Play Video</p></a></div>"
             console.log(content);
         }
@@ -57,5 +57,10 @@ View.prototype = {
             position: enteredMarker.getPosition(),
             content: content
         });
+    },
+  generateShareLink: function (point) {
+        console.log("this is the point", point.point_id)
+        var link = "www.worldplayground.azurewebsites.net/?id=" + point.point_id
+        $("#success-message").html("Share this link: " + link)
     }
 }

@@ -1,7 +1,7 @@
   function Controller() {
     this.view = new View();
+    this.getType();
     this.getUserLocation();
-    this.getMarkers();
     this.positionRefresh();
     this.addListeners();
     this.lastWindow;
@@ -22,43 +22,53 @@
             $("#content-link").slideToggle();
         });
         $("#save").on('click', function () {
-            self.savePoint(draggablePoint);
             $("#content-link").slideToggle();
-            //$("#success-navigation").slideToggle();
-        });
-        $("#share").on('click', function () {
-            self.shareLink(draggablePoint);
+            self.savePoint(draggablePoint);
         });
         $("#close").on('click', function () {
             $("#success-navigation").slideToggle();
             $("#submit-point").slideToggle();
         });
     },
+    getType: function () {
+        var self = this;
+        var queryString = window.location.search.substring(1);
+        if (queryString) {
+            console.log("this is a query", queryString);
+            var pair = queryString.split("=");
+            self.getSingleMarker(pair[1]);
+        } else {
+            self.getMarkers();
+        }
+    },
     positionRefresh: function() {
       setInterval(function() {
           this.getUserLocation();
-          console.log('coffee');
       }.bind(this), 5000);
     },
-    getUserLocation: function() {
+    getUserLocation: function () {
+
       if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.positionReponse.bind(this), this.positionError.bind(this))
+          navigator.geolocation.getCurrentPosition(this.positionReponse.bind(this), this.positionError.bind(this));
       }
       else {
         handleNoGeolocation(false);
       }
     },
-    positionReponse: function(position) {
+    positionReponse: function (position) {
       var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       this.checkLocation(pos);
       this.moveUserMarker(pos);
     },
     moveUserMarker: function(pos) {
       if(this.view.userMarker) {
-        this.view.userMarker.setPosition(pos);
+          this.view.userMarker.setPosition(pos);
       }
       else {
-        this.view.initializeUserMarker(pos);
+          this.view.initializeUserMarker(pos);
+          if (window.location.search.substring(1) == null) {
+              this.view.map.panTo(pos);
+          }
       }
     },
     positionError: function() {
@@ -74,7 +84,7 @@
             url: "api/WayPoints?lat="+userLat+"&lng="+userLng
             //url: "api/WayPoints?lat=-41.3038673&lng=174.742126"
     })
-        .done(function(response) {
+        .done(function (response) {
           if (response.Id != 0) {
               self.findEnteredMarker(response.Id)
           };
@@ -108,24 +118,6 @@
             URL: $("#enter-url").val(),
         };
       });
-      //$("#save").on('click', function(){
-
-
-
-        
-      //  //var savedMarker = new PointMarker(point);
-      //  //savedMarker.placeMarker(self.view.map)
-      //  //marker.setMap(null);
-      //  //var saveMarker = self.view.addMarker(point);
-      //  //saveMarker.placeMarker(self.view.map);
-      //});
-
-      // $.each(markers, function(index, item) {
-      //   var marker = new PointMarker(item)
-      //   var googleMarker = marker.placeMarker(self.view.map);
-      //   global.allMarkers.push(googleMarker)
-      // })
-
     },
     savePoint: function (point) {
         console.log("this is a point", point)
@@ -139,9 +131,13 @@
                 var savedMarker = new PointMarker(response);
                 savedMarker.placeMarker(self.view.map)
                 temporaryMarker.setMap(null);
+                $("#success-navigation").slideToggle();
+                $("#share").on('click', function () {
+                    self.view.generateShareLink(savedMarker);
+                });
             })
         .fail(function () {
-            alert("Checking database failed");
+            $("#fail-message").slideToggle();
         });
     },
     changeEnteredIcon: function(enteredMarker) {
@@ -159,8 +155,7 @@
             enteredMarker.setAnimation(null);
         });
     },
-    retrieveMarkers: function(markers) {
-        console.log("retrieve: ", markers)
+    retrieveMarkers: function (markers) {
       var self = this;
       $.each(markers, function(index, item) {
         var marker = new PointMarker(item);
@@ -169,22 +164,39 @@
       })
     },
     getMarkers: function () {
+        console.log("getmarkers")
         var self = this;
         $.ajax({
             type: "GET",
             url: "api/WayPoints",
         })
         .done(function (response) {
-                console.log("ajax :", response);
+            console.log("DONE")
                 self.retrieveMarkers(response);
-
             })
         .fail(function() {
-            alert("ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA");
+            alert("Uh oh! Placing markers failed. Please reload the page.");
         });
       //  return JSON array
     },
-
+    getSingleMarker: function (pointId) {
+        var self = this;
+        $.ajax({
+            type: "GET",
+            url: "api/WayPoints/?id=" + pointId,
+        })
+        .done(function (response) {
+            var singleMarker = [response];
+            self.retrieveMarkers(singleMarker);
+            var newCentre = new google.maps.LatLng(response.Latitude, response.Longitude);
+            self.view.map.panTo(newCentre);
+            })
+        .fail(function () {
+            alert("Uh oh! We couldn't find that marker. Ple" +
+                "ase reload the page.");
+        });
+        //  return JSON array
+    },
     search: function () {
 
         var self = this;
@@ -237,15 +249,6 @@
     }
   }
 
-
-  //var markers = [
-  //{id:1,lat:-41.292936, lng:174.778219},
-  //{id:2,lat:-41.282786, lng:174.766310},
-  //{id:3,lat:-41.303866, lng:174.742127},
-  //{id:4,lat:-41.311305, lng:174.818388},
-  //{id:5,lat:-41.278163, lng:174.777446}
-  //]
-
         // renderMarkers();
         // map.setCenter(pos);
 
@@ -294,20 +297,3 @@
 
 
 
-
-
-
-
-
-
-// $.ajax({
-//   type: "POST",
-//   url: "/api/location",
-//   data: { Lat: marker.position.lat, Lng: marker.position.lng, url: }
-// })
-// .done(function( msg ) {
-//   alert( "Data Saved: " + msg );
-// });
-// .fail(function() {
-//   alert( "ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA" );
-// })
