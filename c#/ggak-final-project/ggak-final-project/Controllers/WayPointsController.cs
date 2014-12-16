@@ -115,14 +115,14 @@ namespace ggak_final_project.Controllers
         [ResponseType(typeof(WayPoint))]
         public WayPoint PostWayPoint([FromBody] WayPoint waypoint) // before string previously 
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 db.WayPoints.Add(waypoint);
                 db.SaveChanges();
                 return waypoint;
-            }
+            //}
 
-            return null;
+            //return null;
         }
 
         // DELETE: api/WayPoints/5
