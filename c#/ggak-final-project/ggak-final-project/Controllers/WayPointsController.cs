@@ -60,7 +60,8 @@ namespace ggak_final_project.Controllers
             Radius radius = new Radius(); //currently putting in a threshold radius of 
 
 
-            return allPoints.FirstOrDefault(p => radius.isInRadius(p.Latitude, p.Longitude, checkLat, checklng))??pointToReturn;
+            return allPoints.ToList().FirstOrDefault(p => radius.isInRadius(p.Latitude, p.Longitude, checkLat, checklng));
+                //??pointToReturn;
             //foreach (WayPoint point in allPoints)
             //{
             //    if (radius.isInRadius(point.Latitude, point.Longitude, checkLat,checklng)) {
