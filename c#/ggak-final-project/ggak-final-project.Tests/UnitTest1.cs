@@ -18,6 +18,7 @@ namespace ggak_final_project.Tests
         //create a new fake iworldplaygroind make a new class that implments iworldthingy
         private IWorldPlaygroundDBContext _context;
         private WayPointsController _controller;
+        private float radiusThreshold = (float)0.001;
 
        [TestInitialize]
         public void SetUp()
@@ -63,6 +64,102 @@ namespace ggak_final_project.Tests
             Assert.AreEqual("W1URL",checkWayPoint.URL);
 
         }
+
+    
+
+        [TestMethod]
+        public void isnt_in_radius_with_wrong_coords()
+        {
+
+            //act
+            WayPoint checkWayPoint = _controller.GetWayPoint("1.234343", "43.234343");
+            //assert
+            Assert.IsNull(checkWayPoint.URL);
+
+        }
+
+        [TestMethod]
+        public void is_in_radius_with_only_long_off_by_one()
+        {
+
+            //act
+            WayPoint checkWayPoint = _controller.GetWayPoint("41.233343", "43.234343"); //41.234343 - 0.001
+            //assert
+            Assert.AreEqual("W1URL", checkWayPoint.URL);
+
+        }
+
+        //[TestMethod]
+        //public void is_in_radius_with_only_lat_off_by_one()
+        //{
+
+        //    //act
+        //    WayPoint checkWayPoint = _controller.GetWayPoint("41.233343", "43.233343"); //43.234343 - 0.001
+        //    //assert
+        //    Assert.AreEqual("W1URL", checkWayPoint.URL);
+
+        //}
+
+        [TestMethod]
+        public void isnt_in_radius_with_long_off_by_two()
+        {
+
+            //act
+            WayPoint checkWayPoint = _controller.GetWayPoint("41.233343", "43.231343"); //43.234343 - 0.002
+            //assert
+            Assert.IsNull(checkWayPoint.URL);
+
+        }
+
+        [TestMethod]
+        public void isnt_in_radius_with_long_and_lat_off_by_one()
+        {
+
+            //act
+            WayPoint checkWayPoint = _controller.GetWayPoint("41.233343", "43.233343"); //- 0.001
+            //assert
+            Assert.IsNull(checkWayPoint.URL);
+
+        }
+
+        [TestMethod]
+        public void isnt_in_radius_with_long_and_lat_off_by_sin45_radius_Threshold()
+        {
+           float checkLat = (float) (41.233343 - (radiusThreshold * Math.Sin(45 * (Math.PI / 180))));
+           float checkLong = (float)(43.233343 - (radiusThreshold * Math.Sin(45 * (Math.PI / 180))));
+            //act
+            WayPoint checkWayPoint = _controller.GetWayPoint("41.233343", "43.233343"); //- 0.001
+            //assert
+            Assert.IsNull(checkWayPoint.URL);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     public class fakeDataContext : IWorldPlaygroundDBContext
