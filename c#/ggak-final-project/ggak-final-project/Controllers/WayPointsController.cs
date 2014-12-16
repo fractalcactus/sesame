@@ -32,13 +32,13 @@ namespace ggak_final_project.Controllers
         {
             this.db = fakeDb;
         }
-     
+
         //gets all the WayPoints
         //GET: api/WayPoints
         public IQueryable<WayPoint> GetWayPoints()
         {
-          return db.WayPoints;
-      
+            return db.WayPoints;
+
         }
 
         //a check method to see if you're at a WayPoint
@@ -61,7 +61,7 @@ namespace ggak_final_project.Controllers
 
 
             return allPoints.ToList().FirstOrDefault(p => radius.isInRadius(p.Latitude, p.Longitude, checkLat, checklng));
-                //??pointToReturn;
+            //?? pointToReturn;
             //foreach (WayPoint point in allPoints)
             //{
             //    if (radius.isInRadius(point.Latitude, point.Longitude, checkLat,checklng)) {
@@ -111,20 +111,18 @@ namespace ggak_final_project.Controllers
 
         // POST: api/WayPoints
         //store lat and long and url in db
-      //  [HttpPost]
+        //  [HttpPost]
         [ResponseType(typeof(WayPoint))]
         public WayPoint PostWayPoint([FromBody] WayPoint waypoint) // before string previously 
         {
-           // WayPoint waypoint = JsonConvert.DeserializeObject<WayPoint>(input); //convert the input from Json to a WayPoint Object
+            //if (ModelState.IsValid)
+            //{
+                db.WayPoints.Add(waypoint);
+                db.SaveChanges();
+                return waypoint;
+            //}
 
-            waypoint.URL = "Moar COFFFFF333333333; please :)";
-
-            db.WayPoints.Add(waypoint);
-            db.SaveChanges();
-            return waypoint;
-      
-
-
+            //return null;
         }
 
         // DELETE: api/WayPoints/5

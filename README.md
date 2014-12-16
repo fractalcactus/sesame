@@ -127,3 +127,5 @@ adds a waypoint into the DB and returns everything with an id
 *Error:*
 `Status Code - 400`
 
+
+

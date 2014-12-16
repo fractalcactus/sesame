@@ -234,6 +234,9 @@
     <Compile Include="Migrations\201412160323269_WayPoint_Path_Order.Designer.cs">
       <DependentUpon>201412160323269_WayPoint_Path_Order.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412160558264_removed-required-on-latitude-longitude-url.cs" />
+    <Compile Include="Migrations\201412160558264_removed-required-on-latitude-longitude-url.Designer.cs">
+      <DependentUpon>201412160558264_removed-required-on-latitude-longitude-url.cs</DependentUpon>
     <Compile Include="Migrations\201412162103290_WayPoint_Paths_Relationship.cs" />
     <Compile Include="Migrations\201412162103290_WayPoint_Paths_Relationship.Designer.cs">
       <DependentUpon>201412162103290_WayPoint_Paths_Relationship.cs</DependentUpon>
@@ -351,6 +354,8 @@
     <EmbeddedResource Include="Migrations\201412160323269_WayPoint_Path_Order.resx">
       <DependentUpon>201412160323269_WayPoint_Path_Order.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412160558264_removed-required-on-latitude-longitude-url.resx">
+      <DependentUpon>201412160558264_removed-required-on-latitude-longitude-url.cs</DependentUpon>
     <EmbeddedResource Include="Migrations\201412162103290_WayPoint_Paths_Relationship.resx">
       <DependentUpon>201412162103290_WayPoint_Paths_Relationship.cs</DependentUpon>
     </EmbeddedResource>
