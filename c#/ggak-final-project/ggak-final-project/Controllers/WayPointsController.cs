@@ -61,17 +61,22 @@ namespace ggak_final_project.Controllers
 
 
             return allPoints.ToList().FirstOrDefault(p => radius.isInRadius(p.Latitude, p.Longitude, checkLat, checklng));
-            //?? pointToReturn;
-            //foreach (WayPoint point in allPoints)
-            //{
-            //    if (radius.isInRadius(point.Latitude, point.Longitude, checkLat,checklng)) {
-            //        pointToReturn = point;
-            //        break;
+            
+        }
 
-            //    }
-            //}
+        //returns a waypoint given the id
+        // GET: api/WayPoints?id=5
+        //[ResponseType(typeof(WayPoint))]
+        public WayPoint GetWayPoint(string id)
+        {
+            int checkId = int.Parse(id);
+            WayPoint pointToReturn = new WayPoint();
+            IQueryable<WayPoint> allPoints = db.WayPoints; //get all points from db
 
-            //return pointToReturn;
+      
+
+            return allPoints.ToList().FirstOrDefault(p => p.Id == checkId);
+
         }
 
         // PUT: api/WayPoints/5
