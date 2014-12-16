@@ -24,10 +24,6 @@
         $("#save").on('click', function () {
             $("#content-link").slideToggle();
             self.savePoint(draggablePoint);
-            $("#success-navigation").slideToggle();
-        });
-        $("#share").on('click', function () {
-            self.shareLink(draggablePoint);
         });
         $("#close").on('click', function () {
             $("#success-navigation").slideToggle();
@@ -37,10 +33,10 @@
     positionRefresh: function() {
       setInterval(function() {
           this.getUserLocation();
-          console.log('coffee');
       }.bind(this), 5000);
     },
-    getUserLocation: function() {
+    getUserLocation: function () {
+
       if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.positionReponse.bind(this), this.positionError.bind(this))
       }
@@ -108,24 +104,6 @@
             URL: $("#enter-url").val(),
         };
       });
-      //$("#save").on('click', function(){
-
-
-
-        
-      //  //var savedMarker = new PointMarker(point);
-      //  //savedMarker.placeMarker(self.view.map)
-      //  //marker.setMap(null);
-      //  //var saveMarker = self.view.addMarker(point);
-      //  //saveMarker.placeMarker(self.view.map);
-      //});
-
-      // $.each(markers, function(index, item) {
-      //   var marker = new PointMarker(item)
-      //   var googleMarker = marker.placeMarker(self.view.map);
-      //   global.allMarkers.push(googleMarker)
-      // })
-
     },
     savePoint: function (point) {
         console.log("this is a point", point)
@@ -139,9 +117,13 @@
                 var savedMarker = new PointMarker(response);
                 savedMarker.placeMarker(self.view.map)
                 temporaryMarker.setMap(null);
+                $("#success-navigation").slideToggle();
+                $("#share").on('click', function () {
+                    self.view.generateShareLink(savedMarker);
+                });
             })
         .fail(function () {
-            alert("Checking database failed");
+            alert("Saving point failed");
         });
     },
     changeEnteredIcon: function(enteredMarker) {
@@ -175,9 +157,7 @@
             url: "api/WayPoints",
         })
         .done(function (response) {
-                console.log("ajax :", response);
                 self.retrieveMarkers(response);
-
             })
         .fail(function() {
             alert("ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA");
@@ -294,20 +274,3 @@
 
 
 
-
-
-
-
-
-
-// $.ajax({
-//   type: "POST",
-//   url: "/api/location",
-//   data: { Lat: marker.position.lat, Lng: marker.position.lng, url: }
-// })
-// .done(function( msg ) {
-//   alert( "Data Saved: " + msg );
-// });
-// .fail(function() {
-//   alert( "ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA" );
-// })

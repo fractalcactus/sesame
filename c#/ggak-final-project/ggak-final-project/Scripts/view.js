@@ -57,5 +57,10 @@ View.prototype = {
             position: enteredMarker.getPosition(),
             content: content
         });
+    },
+  generateShareLink: function (point) {
+        console.log("this is the point", point.point_id)
+        var link = "www.worldplayground.azurewebsites.net/" + point.point_id
+        $("#success-message").html("Share this link: " + link)
     }
 }
