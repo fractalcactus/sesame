@@ -25,6 +25,7 @@ namespace ggak_final_project.Models
         //[Required]
         public String URL { get; set; }
         public int Order { get; set; }
+        public Path Path { get; set; }
      
     }
 }
