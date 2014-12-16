@@ -23,7 +23,7 @@ namespace ggak_final_project.Models
         // connection string in the application configuration file.
         public WorldPlaygroundDBContext() : base("name=WorldPlaygroundDBContext")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<WorldPlaygroundDBContext, Migrations.Configuration>());
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<WorldPlaygroundDBContext, Migrations.Configuration>());
           
         }
 
