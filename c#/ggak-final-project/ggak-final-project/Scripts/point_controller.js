@@ -164,12 +164,14 @@
       })
     },
     getMarkers: function () {
+        console.log("getmarkers")
         var self = this;
         $.ajax({
             type: "GET",
             url: "api/WayPoints",
         })
         .done(function (response) {
+            console.log("DONE")
                 self.retrieveMarkers(response);
             })
         .fail(function() {
