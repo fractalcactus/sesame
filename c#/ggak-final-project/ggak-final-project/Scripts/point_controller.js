@@ -1,7 +1,7 @@
   function Controller() {
     this.view = new View();
     this.getUserLocation();
-    this.getMarkers();
+    this.getType();
     this.positionRefresh();
     this.addListeners();
     this.lastWindow;
@@ -29,6 +29,16 @@
             $("#success-navigation").slideToggle();
             $("#submit-point").slideToggle();
         });
+    },
+    getType: function () {
+        var self = this;
+        var splitURL = window.location.pathname.split( '/' );
+        if (splitURL[1]) {
+            console.log("whoops");
+            self.getSingleMarker(splitURL[1]);
+        } else {
+            self.getMarkers();
+        }
     },
     positionRefresh: function() {
       setInterval(function() {
@@ -142,7 +152,6 @@
         });
     },
     retrieveMarkers: function(markers) {
-        console.log("retrieve: ", markers)
       var self = this;
       $.each(markers, function(index, item) {
         var marker = new PointMarker(item);
@@ -160,11 +169,24 @@
                 self.retrieveMarkers(response);
             })
         .fail(function() {
-            alert("ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA");
+            alert("Uh oh! Placing markers failed. Please reload the page.");
         });
       //  return JSON array
     },
-
+    getSingleMarker: function (pointId) {
+        var self = this;
+        $.ajax({
+            type: "GET",
+            url: "api/WayPoints?id='" + pointId + "'",
+        })
+        .done(function (response) {
+            self.retrieveMarkers(response);
+        })
+        .fail(function () {
+            alert("Uh oh! We couldn't find that marker. Please reload the page.");
+        });
+        //  return JSON array
+    },
     search: function () {
 
         var self = this;
