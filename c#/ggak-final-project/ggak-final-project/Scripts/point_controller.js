@@ -1,7 +1,7 @@
   function Controller() {
     this.view = new View();
-    this.getUserLocation();
     this.getType();
+    this.getUserLocation();
     this.positionRefresh();
     this.addListeners();
     this.lastWindow;
@@ -32,10 +32,11 @@
     },
     getType: function () {
         var self = this;
-        var splitURL = window.location.pathname.split( '/' );
-        if (splitURL[1]) {
-            console.log("whoops");
-            self.getSingleMarker(splitURL[1]);
+        var queryString = window.location.search.substring(1);
+        if (queryString) {
+            console.log("this is a query", queryString);
+            var pair = queryString.split("=");
+            self.getSingleMarker(pair[1]);
         } else {
             self.getMarkers();
         }
@@ -48,23 +49,25 @@
     getUserLocation: function () {
 
       if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.positionReponse.bind(this), this.positionError.bind(this))
+          navigator.geolocation.getCurrentPosition(this.positionReponse.bind(this), this.positionError.bind(this));
       }
       else {
         handleNoGeolocation(false);
       }
     },
-    positionReponse: function(position) {
-      var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    positionReponse: function (position) {
+        var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        console.log("pos", pos)
       this.checkLocation(pos);
       this.moveUserMarker(pos);
     },
     moveUserMarker: function(pos) {
       if(this.view.userMarker) {
-        this.view.userMarker.setPosition(pos);
+          this.view.userMarker.setPosition(pos);
       }
       else {
-        this.view.initializeUserMarker(pos);
+          this.view.initializeUserMarker(pos);
+          this.view.map.setCenter(pos);
       }
     },
     positionError: function() {
@@ -80,7 +83,8 @@
             url: "api/WayPoints?lat="+userLat+"&lng="+userLng
             //url: "api/WayPoints?lat=-41.3038673&lng=174.742126"
     })
-        .done(function(response) {
+        .done(function (response) {
+            console.log("response", response)
           if (response.Id != 0) {
               self.findEnteredMarker(response.Id)
           };
@@ -133,7 +137,7 @@
                 });
             })
         .fail(function () {
-            alert("Saving point failed");
+            $("#fail-message").slideToggle();
         });
     },
     changeEnteredIcon: function(enteredMarker) {
@@ -177,13 +181,14 @@
         var self = this;
         $.ajax({
             type: "GET",
-            url: "api/WayPoints?id='" + pointId + "'",
+            url: "api/WayPoints/?id=" + pointId,
         })
         .done(function (response) {
             self.retrieveMarkers(response);
         })
         .fail(function () {
-            alert("Uh oh! We couldn't find that marker. Please reload the page.");
+            alert("Uh oh! We couldn't find that marker. Ple" +
+                "ase reload the page.");
         });
         //  return JSON array
     },
@@ -238,15 +243,6 @@
         });
     }
   }
-
-
-  //var markers = [
-  //{id:1,lat:-41.292936, lng:174.778219},
-  //{id:2,lat:-41.282786, lng:174.766310},
-  //{id:3,lat:-41.303866, lng:174.742127},
-  //{id:4,lat:-41.311305, lng:174.818388},
-  //{id:5,lat:-41.278163, lng:174.777446}
-  //]
 
         // renderMarkers();
         // map.setCenter(pos);
