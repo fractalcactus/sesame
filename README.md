@@ -128,20 +128,4 @@ adds a waypoint into the DB and returns everything with an id
 `Status Code - 400`
 
 
-#### POST api/WayPoints?????????
 
-*Description:*
-as the user adds checkpoints, they get stored in a JS array, along with a name for the path of points. This then gets sent to the C# backend. The name could get sent as a parameter?
-
-*expects:*
-```json
-[{"Lat": 174.780136, "Lng": -41.1232147, "URL": "Ialsoaddedthis"},
-{"Lat": 174.780136, "Lng": -41.1232147, "URL": "Ialsoaddedthis"},
-{"Lat": 174.780136, "Lng": -41.1232147, "URL": "Ialsoaddedthis"},]
-```
-*Success:*
-```json
-??????????????
-```
-*Error:*
-`Status Code - 400`
