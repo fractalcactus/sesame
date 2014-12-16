@@ -11,7 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ggak_final_project.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class RadiusTests
     {
         //create test method
         //create new controler instance

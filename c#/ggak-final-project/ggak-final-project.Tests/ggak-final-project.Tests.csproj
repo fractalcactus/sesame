@@ -100,7 +100,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="RadiusTests.cs" />
+    <Compile Include="WayPointControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

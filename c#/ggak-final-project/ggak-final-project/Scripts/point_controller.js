@@ -1,7 +1,7 @@
   function Controller() {
     this.view = new View();
     this.getUserLocation();
-    this.getMarkers();
+    this.getType();
     this.positionRefresh();
     this.addListeners();
     this.lastWindow;
@@ -22,25 +22,31 @@
             $("#content-link").slideToggle();
         });
         $("#save").on('click', function () {
-            self.savePoint(draggablePoint);
             $("#content-link").slideToggle();
-            //$("#success-navigation").slideToggle();
-        });
-        $("#share").on('click', function () {
-            self.shareLink(draggablePoint);
+            self.savePoint(draggablePoint);
         });
         $("#close").on('click', function () {
             $("#success-navigation").slideToggle();
             $("#submit-point").slideToggle();
         });
     },
+    getType: function () {
+        var self = this;
+        var splitURL = window.location.pathname.split( '/' );
+        if (splitURL[1]) {
+            console.log("whoops");
+            self.getSingleMarker(splitURL[1]);
+        } else {
+            self.getMarkers();
+        }
+    },
     positionRefresh: function() {
       setInterval(function() {
           this.getUserLocation();
-          console.log('coffee');
       }.bind(this), 5000);
     },
-    getUserLocation: function() {
+    getUserLocation: function () {
+
       if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.positionReponse.bind(this), this.positionError.bind(this))
       }
@@ -108,24 +114,6 @@
             URL: $("#enter-url").val(),
         };
       });
-      //$("#save").on('click', function(){
-
-
-
-        
-      //  //var savedMarker = new PointMarker(point);
-      //  //savedMarker.placeMarker(self.view.map)
-      //  //marker.setMap(null);
-      //  //var saveMarker = self.view.addMarker(point);
-      //  //saveMarker.placeMarker(self.view.map);
-      //});
-
-      // $.each(markers, function(index, item) {
-      //   var marker = new PointMarker(item)
-      //   var googleMarker = marker.placeMarker(self.view.map);
-      //   global.allMarkers.push(googleMarker)
-      // })
-
     },
     savePoint: function (point) {
         console.log("this is a point", point)
@@ -139,9 +127,13 @@
                 var savedMarker = new PointMarker(response);
                 savedMarker.placeMarker(self.view.map)
                 temporaryMarker.setMap(null);
+                $("#success-navigation").slideToggle();
+                $("#share").on('click', function () {
+                    self.view.generateShareLink(savedMarker);
+                });
             })
         .fail(function () {
-            alert("Checking database failed");
+            alert("Saving point failed");
         });
     },
     changeEnteredIcon: function(enteredMarker) {
@@ -160,7 +152,6 @@
         });
     },
     retrieveMarkers: function(markers) {
-        console.log("retrieve: ", markers)
       var self = this;
       $.each(markers, function(index, item) {
         var marker = new PointMarker(item);
@@ -175,16 +166,27 @@
             url: "api/WayPoints",
         })
         .done(function (response) {
-                console.log("ajax :", response);
                 self.retrieveMarkers(response);
-
             })
         .fail(function() {
-            alert("ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA");
+            alert("Uh oh! Placing markers failed. Please reload the page.");
         });
       //  return JSON array
     },
-
+    getSingleMarker: function (pointId) {
+        var self = this;
+        $.ajax({
+            type: "GET",
+            url: "api/WayPoints?id='" + pointId + "'",
+        })
+        .done(function (response) {
+            self.retrieveMarkers(response);
+        })
+        .fail(function () {
+            alert("Uh oh! We couldn't find that marker. Please reload the page.");
+        });
+        //  return JSON array
+    },
     search: function () {
 
         var self = this;
@@ -294,20 +296,3 @@
 
 
 
-
-
-
-
-
-
-// $.ajax({
-//   type: "POST",
-//   url: "/api/location",
-//   data: { Lat: marker.position.lat, Lng: marker.position.lng, url: }
-// })
-// .done(function( msg ) {
-//   alert( "Data Saved: " + msg );
-// });
-// .fail(function() {
-//   alert( "ERROR ERROR BUT INSIDE THIS STUPID FUNCTION YAYA" );
-// })

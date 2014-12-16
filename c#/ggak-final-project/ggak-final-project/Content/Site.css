@@ -64,6 +64,25 @@ input:-moz-placeholder { color:#fff; }
   outline: none;
 }
 
+/* Type */
+
+h3 {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-align: center;
+    font-weight: 200;
+    padding: 10px;
+}
+h4 {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-align: center;
+    font-weight: 200;
+}
 /*Buttons*/
 
 .button {
@@ -73,14 +92,15 @@ input:-moz-placeholder { color:#fff; }
   height: 40px;
 }
 
+
+/* Layouts */
+
 .left {
     float: left;
 }
 .right {
     float: right;
 }
-
-/* Layouts */
 
 .full {
   width: 100%;
@@ -89,6 +109,9 @@ input:-moz-placeholder { color:#fff; }
   width: 49%;
 }
 
+.no-space {
+    margin: 0;
+}
 
 /* Inputs */
 #enter-url {
@@ -129,19 +152,3 @@ input:-moz-placeholder { color:#fff; }
     text-align: center;
 }
 
-h3 {
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-align: center;
-    font-weight: 200;
-}
-h4 {
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-align: center;
-    font-weight: 200;
-}
