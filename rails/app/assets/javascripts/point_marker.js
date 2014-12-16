@@ -14,7 +14,8 @@
       var newMarker = new google.maps.Marker({
         position: pointPosition,
         map: map,
-        title: string
+        title: string,
+        content: this.url
       })
     return newMarker    }
   }

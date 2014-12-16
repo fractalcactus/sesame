@@ -2,3 +2,16 @@
  *= require_tree .
  *= require_self
  */
+.info-window {
+  width: 200px;
+  height: 100px;
+  text-align: center;
+  padding-left: 23px;
+  padding-top: 8px;
+}
+.info-window a {
+  font-size: 14px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #373737;
+}

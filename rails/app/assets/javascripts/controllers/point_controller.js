@@ -9,10 +9,17 @@
   var global = this;
 
   Controller.prototype = {
-    addListeners: function() {
+    addListeners: function () {
       var self = this;
-      $("#drop").on('click', function(){
-        self.newPoint();
+      $("#submit-point").on('click', function () {
+          self.newPoint();
+          $(this).slideToggle();
+          $("#content-link").slideToggle();
+      });
+      $("#save").on('click', function () {
+          $("#content-link").slideToggle();
+          $("#submit-point").slideToggle();
+          self.savePoint(draggablePoint);
       });
     },
     positionRefresh: function() {
@@ -73,7 +80,7 @@
           lat: latitude,
           lng: longitude,
           url: $("#enter-url").val(),
-          id: 22
+          id: 23
         };
         var savedMarker = new PointMarker(point);
         savedMarker.placeMarker(self.view.map)
@@ -109,13 +116,10 @@
       var self = this;
       google.maps.event.clearListeners(enteredMarker, 'click');
       var clickListener = google.maps.event.addListener(enteredMarker, 'click', function() {
-        var infowindow = new google.maps.InfoWindow({
-          map: self.view.map,
-          position: enteredMarker.position,
-          content: "<a href='http://www.google.com'>Google!</a>"
-        });
-      });
+        self.view.addPopup(enteredMarker)
+      })
     },
+
     retrieveMarkers: function() {
       // var markers = getMarkers();
       var self = this;
@@ -144,7 +148,7 @@
 
   var markers = [
   {id:1,lat:-41.292936, lng:174.778219},
-  {id:2,lat:-41.282786, lng:174.766310},
+  {id:2,lat:-41.282786, lng:174.766310, url: "https://www.youtube.com/watch?v=syFZfO_wfMQ"},
   {id:3,lat:-41.303866, lng:174.742127},
   {id:4,lat:-41.311305, lng:174.818388},
   {id:5,lat:-41.278163, lng:174.777446}

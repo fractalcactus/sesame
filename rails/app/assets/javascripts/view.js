@@ -30,12 +30,30 @@ View.prototype = {
     icon: "http://maps.google.com/mapfiles/ms/micons/blue.png"
     });
   return marker;
+  },
+  addPopup: function(enteredMarker) {
+    var content;
+    var self = this;
+    if (enteredMarker.content.match(/(soundcloud)/i)) {
+      content = "<div class='info-window'><a href='" + enteredMarker.content + "'><img width='50px' src='https://dl-web.dropbox.com/get/play.svg?_subject_uid=126418071&w=AAD4DNBzmDMykdT1LooMbHoZG6x7rJip3lXxSoBxLgLPEA'/><p>Play Song</p></a></div>"
+    }
+    else if (enteredMarker.content.match(/(youtube)/i)) {
+      content = "<div class='info-window'><a href='" + enteredMarker.content + "'><img  width='50px' src='https://dl-web.dropbox.com/get/play.svg?_subject_uid=126418071&w=AAD4DNBzmDMykdT1LooMbHoZG6x7rJip3lXxSoBxLgLPEA'/><p>Play Video</p></a></div>"
+      console.log(content);
+    }
+    else if ((enteredMarker.content.match(/(http)/i)) || (enteredMarker.url.match(/(www)/i))) {
+      content = "<div class='info-window'><a href='" + enteredMarker.content + "'><p>Follow Link</p></a></div>"
+    }
+    else {
+      content = "<p>" + enteredMarker.content + "</p>"
+    }
+    var infowindow = new google.maps.InfoWindow({
+      map: self.map,
+      position: enteredMarker.getPosition(),
+      content: content
+    });
   }
 }
 
 
-        // var infowindow = new google.maps.InfoWindow({
-        //   map: this.view.map,
-        //   position: pos,
-        //   content: "<a href='http://www.google.com'>Google!</a>"
-        // });
+
