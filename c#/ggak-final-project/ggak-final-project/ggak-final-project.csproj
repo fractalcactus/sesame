@@ -234,10 +234,15 @@
     <Compile Include="Migrations\201412160323269_WayPoint_Path_Order.Designer.cs">
       <DependentUpon>201412160323269_WayPoint_Path_Order.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412162103290_WayPoint_Paths_Relationship.cs" />
+    <Compile Include="Migrations\201412162103290_WayPoint_Paths_Relationship.Designer.cs">
+      <DependentUpon>201412162103290_WayPoint_Paths_Relationship.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Path.cs" />
     <Compile Include="Models\WayPoint.cs" />
     <Compile Include="Models\WorldPlaygroundDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -345,6 +350,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201412160323269_WayPoint_Path_Order.resx">
       <DependentUpon>201412160323269_WayPoint_Path_Order.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412162103290_WayPoint_Paths_Relationship.resx">
+      <DependentUpon>201412162103290_WayPoint_Paths_Relationship.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

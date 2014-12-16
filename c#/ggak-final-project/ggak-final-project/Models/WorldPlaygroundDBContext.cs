@@ -1,3 +1,5 @@
+using ggak_final_project.Controllers;
+
 namespace ggak_final_project.Models
 {
     using System;
@@ -28,9 +30,11 @@ namespace ggak_final_project.Models
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
         public virtual IDbSet<WayPoint> WayPoints { get; set; }
+        public virtual IDbSet<Path> Paths { get; set; } 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<WayPoint>().HasKey(i => i.Id);
+            modelBuilder.Entity<WayPoint>().HasKey(i => i.Id).HasRequired(p => p.Path).WithMany(w => w.WayPoints);
+            modelBuilder.Entity<Path>().HasKey(i => i.Id);
             base.OnModelCreating(modelBuilder);
         }
     }
