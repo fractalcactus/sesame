@@ -23,13 +23,21 @@
         });
         $("#save").on('click', function () {
             $("#content-link").slideToggle();
-            $("#submit-point").slideToggle();
+            $("#success-navigation").slideToggle();
             self.savePoint(draggablePoint);
+        });
+        $("#share").on('click', function () {
+            self.shareLink(draggablePoint);
+        });
+        $("#close").on('click', function () {
+            $("#success-navigation").slideToggle();
+            $("#submit-point").slideToggle();
         });
     },
     positionRefresh: function() {
-      setInterval(function(){
-        this.getUserLocation()
+      setInterval(function() {
+          this.getUserLocation();
+          console.log('coffee');
       }.bind(this), 5000);
     },
     getUserLocation: function() {
@@ -63,8 +71,8 @@
         var userLng = pos.lng();
         $.ajax({
             type: "GET",
-            //url: "api/WayPoints?lat="+userLat+"&lng="+userLng
-            url: "api/WayPoints?lat=-41.3038673&lng=174.742126"
+            url: "api/WayPoints?lat="+userLat+"&lng="+userLng
+            //url: "api/WayPoints?lat=-41.3038673&lng=174.742126"
     })
         .done(function(response) {
           if (response.Id != 0) {
@@ -146,11 +154,7 @@
             if (self.currentWindow != undefined) {
                 self.currentWindow.close();
             }
-            self.currentWindow = new google.maps.InfoWindow({
-                map: self.view.map,
-                position: enteredMarker.position,
-                content: "<a href='http://www.google.com'>Google!</a>"
-            });
+            self.view.addPopup(enteredMarker);
             enteredMarker.setAnimation(null);
         });
     },
