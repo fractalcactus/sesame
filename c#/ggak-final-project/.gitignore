@@ -4,7 +4,11 @@
 # User-specific files
 *.suo
 *.user
+*.userosscache
 *.sln.docstates
+
+# User-specific folders
+*.sln.ide/
 
 # Build results
 [Dd]ebug/
@@ -15,6 +19,7 @@ x64/
 x86/
 build/
 bld/
+[Bb]in/
 [Oo]bj/
 
 # Roslyn cache directories
@@ -124,7 +129,7 @@ publish/
 # Publish Web Output
 *.[Pp]ublish.xml
 *.azurePubxml
-# TODO: Comment the next line if you want to checkin your web deploy settings
+# TODO: Comment the next line if you want to checkin your web deploy settings 
 # but database connection strings (with potential passwords) will be unencrypted
 *.pubxml
 *.publishproj
@@ -157,6 +162,7 @@ ClientBin/
 *.pfx
 *.publishsettings
 node_modules/
+bower_components/
 
 # RIA/Silverlight projects
 Generated_Code/

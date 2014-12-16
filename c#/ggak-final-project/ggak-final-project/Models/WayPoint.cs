@@ -24,6 +24,7 @@ namespace ggak_final_project.Models
      //will later put in path ID, but it will be a relationship
         [Required]
         public String URL { get; set; }
+        public int Order { get; set; }
      
     }
 }

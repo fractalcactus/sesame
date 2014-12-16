@@ -26,11 +26,32 @@ This API is written in C# and consumed by the front end JS
 #### GET api/WayPoints
 
 *Description:*
- Takes a lat and lng in the form of a json string, checks if those coords are in the DB, evenutally having a range of acceptable points (e.g a radius of being at a WayPoint)
+ Takes a lat and lng IN PARAMS, checks if those coords are in the DB, evenutally having a range of acceptable points (e.g a radius of being at a WayPoint)
 
 *expects:*
 ```json
-'{"Lat": "3", "Lng":"4"}'
+"api/WayPoints?lat="+userLat+"&lng="+userLng
+```
+*Success:*
+```json
+{
+    "Id": 3,
+    "Lat": 3,
+    "Lng": 0,
+    "URL": "https://www.youtube.com/watch?v=JIOCc0tfoqA"
+}
+```
+*Error:*
+`Status Code - 400`
+
+#### GET api/?id=x
+
+*Description:*
+ Takes a single marker ID and returns that marker as a JSON object.
+
+*expects:*
+```id parameter
+"api/WayPoints?id="markerID
 ```
 *Success:*
 ```json
