@@ -35,23 +35,24 @@ View.prototype = {
     });
   return marker;
   },
-    addPopup: function(enteredMarker) {
-        var content;
+  addPopup: function (enteredMarker) {
+      console.log(enteredMarker);
+      var content = enteredMarker.content ? enteredMarker.content : 'blabvlablabla';
         var self = this;
-        if (enteredMarker.content.match(/(soundcloud)/i)) {
-            content = "<div class='info-window'><a href='" + enteredMarker.content + "'><img width='50px' src='https://dl-web.dropbox.com/get/play.svg?_subject_uid=126418071&w=AAD4DNBzmDMykdT1LooMbHoZG6x7rJip3lXxSoBxLgLPEA'/><p>Play Song</p></a></div>"
+        if (content.match(/(soundcloud)/i)) {
+            content = "<div class='info-window'><a href='" + content + "'><img width='50px' src='https://dl-web.dropbox.com/get/play.svg?_subject_uid=126418071&w=AAD4DNBzmDMykdT1LooMbHoZG6x7rJip3lXxSoBxLgLPEA'/><p>Play Song</p></a></div>"
         }
-        else if (enteredMarker.content.match(/(youtube)/i)) {
-            content = "<div class='info-window'><a href='" + enteredMarker.content + "'><img  width='50px' src='https://dl-web.dropbox.com/get/play.svg?_subject_uid=126418071&w=AAD4DNBzmDMykdT1LooMbHoZG6x7rJip3lXxSoBxLgLPEA'/><p>Play Video</p></a></div>"
+        else if (content.match(/(youtube)/i)) {
+            content = "<div class='info-window'><a href='" + content + "'><img  width='50px' src='https://dl-web.dropbox.com/get/play.svg?_subject_uid=126418071&w=AAD4DNBzmDMykdT1LooMbHoZG6x7rJip3lXxSoBxLgLPEA'/><p>Play Video</p></a></div>"
             console.log(content);
         }
-        else if ((enteredMarker.content.match(/(http)/i)) || (enteredMarker.url.match(/(www)/i))) {
-            content = "<div class='info-window'><a href='" + enteredMarker.content + "'><p>Follow Link</p></a></div>"
+        else if ((content.match(/(http)/i)) || (content.match(/(www)/i))) {
+            content = "<div class='info-window'><a href='" + content + "'><p>Follow Link</p></a></div>"
         }
         else {
-            content = "<p>" + enteredMarker.content + "</p>"
+            content = "<div class='info-window'><p>" + content + "</p></div>";
         }
-        var infowindow = new google.maps.InfoWindow({
+        new google.maps.InfoWindow({
             map: self.map,
             position: enteredMarker.getPosition(),
             content: content

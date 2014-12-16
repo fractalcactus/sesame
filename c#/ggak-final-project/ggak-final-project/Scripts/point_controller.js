@@ -22,9 +22,9 @@
             $("#content-link").slideToggle();
         });
         $("#save").on('click', function () {
-            $("#content-link").slideToggle();
-            $("#success-navigation").slideToggle();
             self.savePoint(draggablePoint);
+            $("#content-link").slideToggle();
+            //$("#success-navigation").slideToggle();
         });
         $("#share").on('click', function () {
             self.shareLink(draggablePoint);
@@ -128,6 +128,7 @@
 
     },
     savePoint: function (point) {
+        console.log("this is a point", point)
         var self = this;
         $.ajax({
             type: "POST",
