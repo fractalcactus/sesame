@@ -21,7 +21,8 @@ namespace ggak_final_project.Models
         // connection string in the application configuration file.
         public WorldPlaygroundDBContext() : base("name=WorldPlaygroundDBContext")
         {
-             Database.SetInitializer(new MigrateDatabaseToLatestVersion<WorldPlaygroundDBContext, Migrations.Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<WorldPlaygroundDBContext, Migrations.Configuration>());
+          
         }
 
         // Add a DbSet for each entity type that you want to include in your model. For more information 

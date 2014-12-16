@@ -11,7 +11,8 @@ namespace ggak_final_project.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            
             AutomaticMigrationDataLossAllowed = true;
         }
 
