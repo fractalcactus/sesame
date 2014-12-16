@@ -15,7 +15,8 @@ var PointMarker = function (item) {
             position: pointPosition,
             map: map,
             title: string,
-            icon: "/Content/fixedmarker.svg"
+            icon: "/Content/fixedmarker.svg",
+            content: this.url
         });
         return newMarker;
     }
