@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Web.Http;
 using System.Web.Http.Description;
+using ggak_final_project.Controllers.business_logic;
 using ggak_final_project.Models;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
@@ -20,14 +21,24 @@ namespace ggak_final_project.Controllers
 {
     public class WayPointsController : ApiController
     {
-        private WorldPlaygroundDBContext db = new WorldPlaygroundDBContext();
+        private IWorldPlaygroundDBContext db;
+
+        public WayPointsController()
+        {
+            this.db = new WorldPlaygroundDBContext();
+        }
+
+        public WayPointsController(IWorldPlaygroundDBContext fakeDb)
+        {
+            this.db = fakeDb;
+        }
      
         //gets all the WayPoints
         //GET: api/WayPoints
-        public IEnumerable<WayPoint> GetWayPoints()
+        public IQueryable<WayPoint> GetWayPoints()
         {
-            var q =  db.WayPoints.ToList();
-            return q;
+          return db.WayPoints;
+      
         }
 
         //a check method to see if you're at a WayPoint
@@ -45,17 +56,22 @@ namespace ggak_final_project.Controllers
             WayPoint pointToReturn = new WayPoint();
             IQueryable<WayPoint> allPoints = db.WayPoints; //get all points from db
 
-            foreach (WayPoint point in allPoints)
-            {
-                if (point.Latitude.Equals(checkLat) && point.Longitude.Equals(checklng))
-                {
-                    pointToReturn = point;
-                    break;
+            //create radius object
+            Radius radius = new Radius(); //currently putting in a threshold radius of 
 
-                }
-            }
 
-            return pointToReturn;
+            return allPoints.ToList().FirstOrDefault(p => radius.isInRadius(p.Latitude, p.Longitude, checkLat, checklng));
+                //??pointToReturn;
+            //foreach (WayPoint point in allPoints)
+            //{
+            //    if (radius.isInRadius(point.Latitude, point.Longitude, checkLat,checklng)) {
+            //        pointToReturn = point;
+            //        break;
+
+            //    }
+            //}
+
+            //return pointToReturn;
         }
 
         // PUT: api/WayPoints/5

@@ -188,6 +188,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\business-logic\Radius.cs" />
     <Compile Include="Controllers\CheckPointController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -228,6 +229,10 @@
     <Compile Include="Migrations\201412142324349_deleted-lat-lng.cs" />
     <Compile Include="Migrations\201412142324349_deleted-lat-lng.Designer.cs">
       <DependentUpon>201412142324349_deleted-lat-lng.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412160323269_WayPoint_Path_Order.cs" />
+    <Compile Include="Migrations\201412160323269_WayPoint_Path_Order.Designer.cs">
+      <DependentUpon>201412160323269_WayPoint_Path_Order.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -338,6 +343,9 @@
     <EmbeddedResource Include="Migrations\201412142324349_deleted-lat-lng.resx">
       <DependentUpon>201412142324349_deleted-lat-lng.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412160323269_WayPoint_Path_Order.resx">
+      <DependentUpon>201412160323269_WayPoint_Path_Order.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -372,7 +380,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50209</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

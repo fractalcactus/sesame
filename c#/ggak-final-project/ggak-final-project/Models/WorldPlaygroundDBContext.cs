@@ -4,7 +4,14 @@ namespace ggak_final_project.Models
     using System.Data.Entity;
     using System.Linq;
 
-    public class WorldPlaygroundDBContext : DbContext
+    public interface IWorldPlaygroundDBContext
+    {
+        IDbSet<WayPoint> WayPoints { get; set; }
+        int SaveChanges();
+        void Dispose();
+    }
+
+    public class WorldPlaygroundDBContext : DbContext, IWorldPlaygroundDBContext
     {
         // Your context has been configured to use a 'WorldPlaygroundDBContext' connection string from your application's 
         // configuration file (App.config or Web.config). By default, this connection string targets the 
@@ -20,7 +27,7 @@ namespace ggak_final_project.Models
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
-        public virtual DbSet<WayPoint> WayPoints { get; set; }
+        public virtual IDbSet<WayPoint> WayPoints { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<WayPoint>().HasKey(i => i.Id);
