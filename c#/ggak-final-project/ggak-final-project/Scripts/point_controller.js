@@ -56,8 +56,7 @@
       }
     },
     positionReponse: function (position) {
-        var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        console.log("pos", pos)
+      var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       this.checkLocation(pos);
       this.moveUserMarker(pos);
     },
@@ -67,7 +66,9 @@
       }
       else {
           this.view.initializeUserMarker(pos);
-          this.view.map.setCenter(pos);
+          if (window.location.search.substring(1) == null) {
+              this.view.map.panTo(pos);
+          }
       }
     },
     positionError: function() {
@@ -84,7 +85,6 @@
             //url: "api/WayPoints?lat=-41.3038673&lng=174.742126"
     })
         .done(function (response) {
-            console.log("response", response)
           if (response.Id != 0) {
               self.findEnteredMarker(response.Id)
           };
@@ -155,7 +155,7 @@
             enteredMarker.setAnimation(null);
         });
     },
-    retrieveMarkers: function(markers) {
+    retrieveMarkers: function (markers) {
       var self = this;
       $.each(markers, function(index, item) {
         var marker = new PointMarker(item);
@@ -186,8 +186,11 @@
             url: "api/WayPoints/?id=" + pointId,
         })
         .done(function (response) {
-            self.retrieveMarkers(response);
-        })
+            var singleMarker = [response];
+            self.retrieveMarkers(singleMarker);
+            var newCentre = new google.maps.LatLng(response.Latitude, response.Longitude);
+            self.view.map.panTo(newCentre);
+            })
         .fail(function () {
             alert("Uh oh! We couldn't find that marker. Ple" +
                 "ase reload the page.");
