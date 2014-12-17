@@ -1,4 +1,9 @@
-  function Controller() {
+var global = this;
+var draggablePoint;
+var temporaryMarker;
+var allMarkers = [];
+
+function Controller() {
     this.view = new View();
     this.getType();
     this.getUserLocation();
@@ -7,11 +12,6 @@
     this.lastWindow;
     this.search();
   }
-
-  var global = this;
-  var draggablePoint;
-  var temporaryMarker;  
-  var allMarkers = [];
 
   Controller.prototype = {
     addListeners: function () {
@@ -34,17 +34,26 @@
         var self = this;
         var queryString = window.location.search.substring(1);
         if (queryString) {
-            console.log("this is a query", queryString);
             var pair = queryString.split("=");
-            self.getSingleMarker(pair[1]);
+            self.pointRefresh(function() { self.getSingleMarker(pair[1]); });
         } else {
-            self.getMarkers();
+            self.pointRefresh(self.getMarkers);
         }
     },
     positionRefresh: function() {
       setInterval(function() {
           this.getUserLocation();
       }.bind(this), 5000);
+    },
+    pointRefresh: function (getType) {
+        var type = getType.bind(this);
+        type();
+        setInterval(function () {
+            for (var i = 0; i < global.allMarkers.length; i++) {
+                global.allMarkers[i].setMap(map);
+            }
+            type();
+        }.bind(this), 10000);
     },
     getUserLocation: function () {
 
@@ -56,7 +65,8 @@
       }
     },
     positionReponse: function (position) {
-      var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        console.log(pos);
       this.checkLocation(pos);
       this.moveUserMarker(pos);
     },
@@ -86,7 +96,7 @@
     })
         .done(function (response) {
           if (response.Id != 0) {
-              self.findEnteredMarker(response.Id)
+              self.findEnteredMarker(response.Id);
           };
         })
         .fail(function() {
@@ -108,19 +118,23 @@
       temporaryMarker = this.view.addMarker();
       var latitude = temporaryMarker.getPosition().lat();
       var longitude = temporaryMarker.getPosition().lng();
-      console.log("inbternalmarker", temporaryMarker)
+      draggablePoint = {
+          Latitude: latitude,
+          Longitude: longitude,
+          URL: $("#enter-url").val(),
+      };
       google.maps.event.addListener(temporaryMarker, 'dragend', function (event) {
           latitude = temporaryMarker.getPosition().lat();
           longitude = temporaryMarker.getPosition().lng();
-        draggablePoint = {
-            Latitude: latitude,
-            Longitude: longitude,
-            URL: $("#enter-url").val(),
-        };
+          draggablePoint = {
+              Latitude: latitude,
+              Longitude: longitude,
+              URL: $("#enter-url").val(),
+          };
       });
+
     },
     savePoint: function (point) {
-        console.log("this is a point", point)
         var self = this;
         $.ajax({
             type: "POST",
@@ -135,7 +149,7 @@
                 $("#share").on('click', function () {
                     self.view.generateShareLink(savedMarker);
                 });
-            })
+         })
         .fail(function () {
             $("#fail-message").slideToggle();
         });
@@ -147,7 +161,7 @@
         var self = this;
         enteredMarker.setAnimation(google.maps.Animation.BOUNCE);
         google.maps.event.clearListeners(enteredMarker, 'click');
-        var clickListener = google.maps.event.addListener(enteredMarker, 'click', function () {
+        google.maps.event.addListener(enteredMarker, 'click', function () {
             if (self.currentWindow != undefined) {
                 self.currentWindow.close();
             }
@@ -155,25 +169,16 @@
             enteredMarker.setAnimation(null);
         });
     },
-    retrieveMarkers: function (markers) {
-      var self = this;
-      $.each(markers, function(index, item) {
-        var marker = new PointMarker(item);
-        var googleMarker = marker.placeMarker(self.view.map);
-        global.allMarkers.push(googleMarker);
-      })
-    },
     getMarkers: function () {
-        console.log("getmarkers")
+        console.log("this", this)
         var self = this;
         $.ajax({
             type: "GET",
             url: "api/WayPoints",
         })
         .done(function (response) {
-            console.log("DONE")
-                self.retrieveMarkers(response);
-            })
+            self.retrieveMarkers(response);   
+            }.bind(self))
         .fail(function() {
             alert("Uh oh! Placing markers failed. Please reload the page.");
         });
@@ -196,6 +201,14 @@
                 "ase reload the page.");
         });
         //  return JSON array
+    },
+    retrieveMarkers: function (markers) {
+        var self = this;
+        $.each(markers, function (index, item) {
+            var marker = new PointMarker(item);
+            var googleMarker = marker.placeMarker(self.view.map);
+            global.allMarkers.push(googleMarker);
+        });
     },
     search: function () {
 
