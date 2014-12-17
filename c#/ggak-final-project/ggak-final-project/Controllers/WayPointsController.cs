@@ -45,17 +45,33 @@ namespace ggak_final_project.Controllers
         //a check method to see if you're at a WayPoint
         // GET: api/WayPoints/5
         //[ResponseType(typeof(WayPoint))]
-        public IEnumerable<WayPoint> GetWayPoint(float lat, float lng)
+        //public IEnumerable<WayPoint> GetWayPoint(float lat, float lng)
+        //{
+
+        //    IEnumerable<WayPoint> allPoints = db.WayPoints.ToList(); //get all points from db
+
+        //    //create radius object
+        //    Radius radius = new Radius(); //currently putting in a threshold radius of 
+
+
+        //    return allPoints.Where(p => radius.isInRadius(p.Latitude, p.Longitude, lat, lng));
+
+        //}
+        public WayPoint GetWayPoint(float lat, float lng)
         {
 
             IEnumerable<WayPoint> allPoints = db.WayPoints.ToList(); //get all points from db
+
+            WayPoint toReturn = new WayPoint();
+            toReturn.Latitude = 0;
+            toReturn.Longitude = 0;
+            toReturn.URL = null;
 
             //create radius object
             Radius radius = new Radius(); //currently putting in a threshold radius of 
 
 
-            return allPoints.Where(p => radius.isInRadius(p.Latitude, p.Longitude, lat, lng));
-
+            return allPoints.FirstOrDefault(p => radius.isInRadius(p.Latitude, p.Longitude, lat, lng)) ?? toReturn;
         }
 
         //returns a waypoint given the id

@@ -14,7 +14,7 @@ namespace ggak_final_project.Controllers.business_logic
 
         public Radius()
         {
-            radiusThreshold = 0.002;
+            radiusThreshold = 0.00003;
         }
 
         public Radius(double radiusThreshold) //This threshold is in degrees of Latitude & Longitude
