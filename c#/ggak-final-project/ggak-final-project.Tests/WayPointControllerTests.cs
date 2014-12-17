@@ -57,7 +57,6 @@ namespace ggak_final_project.Tests
         [TestMethod]
         public void it_responds_with_an_error_with_incorrect_post()
         {
-            //how to mock json test?
 
             WayPoint checkWayPoint = new WayPoint() { };
             _controller.Configuration = new HttpConfiguration();
@@ -66,6 +65,7 @@ namespace ggak_final_project.Tests
             IHttpActionResult response = _controller.PostWayPoint(checkWayPoint);
 
             Assert.IsInstanceOfType(response, typeof( Results.BadRequestErrorMessageResult));
+           
         }
     }
 }

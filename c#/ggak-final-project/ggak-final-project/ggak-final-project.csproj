@@ -192,6 +192,7 @@
     <Compile Include="Controllers\CheckPointController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MetricsController.cs" />
     <Compile Include="Controllers\WayPointsController.cs">
       <SubType>Code</SubType>
     </Compile>

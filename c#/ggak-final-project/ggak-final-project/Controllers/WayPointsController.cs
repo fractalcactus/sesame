@@ -40,23 +40,21 @@ namespace ggak_final_project.Controllers
         public IQueryable<WayPoint> GetWayPoints()
         {
             return db.WayPoints;
-
-
         }
 
         //a check method to see if you're at a WayPoint
         // GET: api/WayPoints/5
         //[ResponseType(typeof(WayPoint))]
-        public WayPoint GetWayPoint(float lat, float lng)
+        public IEnumerable<WayPoint> GetWayPoint(float lat, float lng)
         {
 
-            IQueryable<WayPoint> allPoints = db.WayPoints; //get all points from db
+            IEnumerable<WayPoint> allPoints = db.WayPoints.ToList(); //get all points from db
 
             //create radius object
             Radius radius = new Radius(); //currently putting in a threshold radius of 
 
 
-            return allPoints.ToList().FirstOrDefault(p => radius.isInRadius(p.Latitude, p.Longitude, lat, lng));
+            return allPoints.Where(p => radius.isInRadius(p.Latitude, p.Longitude, lat, lng));
 
         }
 

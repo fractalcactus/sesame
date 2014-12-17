@@ -59,9 +59,10 @@ namespace ggak_final_project.Tests
             //arrange
            // SetUp();
             //act
-            WayPoint checkWayPoint = _controller.GetWayPoint((float)41.234343, (float)43.234343);
+          IEnumerable<WayPoint> checkWayPoints = _controller.GetWayPoint((float)41.234343, (float)43.234343);
             //assert
-            Assert.AreEqual("W1URL",checkWayPoint.URL);
+            
+            Assert.AreEqual("W1URL",checkWayPoints.First().URL);
 
         }
 
@@ -72,9 +73,9 @@ namespace ggak_final_project.Tests
         {
 
             //act
-            WayPoint checkWayPoint = _controller.GetWayPoint((float)41.234343, (float)43.234343);
+            IEnumerable<WayPoint> checkWayPoint = _controller.GetWayPoint((float)41.234343, (float)43.234343);
             //assert
-            Assert.IsNull(checkWayPoint.URL);
+            Assert.IsNull(checkWayPoint.FirstOrDefault(w => w.URL == "W1URL"));
 
         }
 
@@ -83,9 +84,9 @@ namespace ggak_final_project.Tests
         {
 
             //act
-            WayPoint checkWayPoint = _controller.GetWayPoint((float)41.233343, (float)43.234343); //41.234343 - 0.001
+            IEnumerable<WayPoint> checkWayPoint = _controller.GetWayPoint((float)41.233343, (float)43.234343); //41.234343 - 0.001
             //assert
-            Assert.AreEqual("W1URL", checkWayPoint.URL);
+            Assert.AreEqual("W1URL", checkWayPoint.First().URL);
 
         }
 
@@ -105,9 +106,9 @@ namespace ggak_final_project.Tests
         {
 
             //act
-            WayPoint checkWayPoint = _controller.GetWayPoint((float)41.233343, (float)43.231343); //43.234343 - 0.002
+            IEnumerable<WayPoint> checkWayPoint = _controller.GetWayPoint((float)41.233343, (float)43.231343); //43.234343 - 0.002
             //assert
-            Assert.IsNull(checkWayPoint.URL);
+            Assert.IsNull(checkWayPoint.First().URL);
 
         }
 
@@ -116,9 +117,9 @@ namespace ggak_final_project.Tests
         {
 
             //act
-            WayPoint checkWayPoint = _controller.GetWayPoint((float)41.233343, (float)43.233343); //- 0.001
+            IEnumerable<WayPoint> checkWayPoint = _controller.GetWayPoint((float)41.233343, (float)43.233343); //- 0.001
             //assert
-            Assert.IsNull(checkWayPoint.URL);
+            Assert.IsNull(checkWayPoint.First().URL);
 
         }
 
@@ -128,9 +129,9 @@ namespace ggak_final_project.Tests
            float checkLat = (float) (41.233343 - (radiusThreshold * Math.Sin(45 * (Math.PI / 180))));
            float checkLong = (float)(43.233343 - (radiusThreshold * Math.Sin(45 * (Math.PI / 180))));
             //act
-            WayPoint checkWayPoint = _controller.GetWayPoint((float)41.233343, (float)43.233343); //- 0.001
+           IEnumerable<WayPoint> checkWayPoint = _controller.GetWayPoint((float)41.233343, (float)43.233343); //- 0.001
             //assert
-            Assert.IsNull(checkWayPoint.URL);
+            Assert.IsNull(checkWayPoint.First().URL);
 
         }
 
