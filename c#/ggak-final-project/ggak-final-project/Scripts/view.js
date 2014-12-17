@@ -60,7 +60,7 @@ View.prototype = {
     },
   generateShareLink: function (point) {
         console.log("this is the point", point.point_id)
-        var link = "www.worldplayground.azurewebsites.net/?id=" + point.point_id
+        var link = "worldplayground.azurewebsites.net/?id=" + point.point_id
         $("#success-message").html("Share this link: " + link)
     }
 }

@@ -69,16 +69,5 @@ namespace ggak_final_project.Controllers.business_logic
 
         }
 
-
-
-
-
-
-
-
-
-
-
-
     }
 }
