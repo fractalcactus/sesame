@@ -4,7 +4,7 @@
 
 <div id="header" class="green">
     <div id="logo-box">
-        <img src="~/Content/logo.svg" id="logo" />
+        <a href="http://worldplayground.azurewebsites.net/"><img src="~/Content/logo.svg" id="logo" /></a>
     </div>
     <input id="pac-input" class="text-box" type="text" placeholder="Change location" autofocus>
 </div>
@@ -12,15 +12,15 @@
 </div>
 
 <div id="bottom-navigation">
-    <div id="submit-point">
-        <div id="drop" class="button pink"><h3>Add a Point</h3></div>
+    <div id="submit-point" class="button-wrapper">
+            <div id="drop" class="button pink"><h3>Add a Point</h3></div>
     </div>
-    <div id='content-link'>
+    <div id='content-link' class="button-wrapper">
         <input placeholder="Insert link" name='url' type='text' id='enter-url' /><br>
         <h4 id="fail-message">Save failed, marker must have content</h4>
         <div id='save' class="button pink"><h3>Save</h3></div>
     </div>
-    <div id='success-navigation'>
+    <div id='success-navigation' class="button-wrapper">
         <h4 id="success-message">Saved Successfully</h4>
         <div class="full">
             <div id='share' class="half button pink left"><h3 class="no-space">Share Link</h3></div>

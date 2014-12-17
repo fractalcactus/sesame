@@ -40,10 +40,10 @@ View.prototype = {
       var content = enteredMarker.content ? enteredMarker.content : 'There is no content to display';
         var self = this;
         if (content.match(/(soundcloud)/i)) {
-            content = "<div class='info-window'><a href='" + content + "'><img width='50px' src='https://dl-web.dropbox.com/get/play.svg?_subject_uid=126418071&w=AAD4DNBzmDMykdT1LooMbHoZG6x7rJip3lXxSoBxLgLPEA'/><p>Play Song</p></a></div>"
+            content = "<div class='info-window'><a href='" + content + "'><img width='50px' src='/Content/play.svg'/><p>Play Song</p></a></div>"
         }
         else if (content.match(/(youtu)/i)) {
-            content = "<div class='info-window'><a href='" + content + "'><img  width='50px' src='https://dl-web.dropbox.com/get/play.svg?_subject_uid=126418071&w=AAD4DNBzmDMykdT1LooMbHoZG6x7rJip3lXxSoBxLgLPEA'/><p>Play Video</p></a></div>"
+            content = "<div class='info-window'><a href='" + content + "'><img  width='50px' src='/Content/play.svg'/><p>Play Video</p></a></div>"
             console.log(content);
         }
         else if ((content.match(/(http)/i)) || (content.match(/(www)/i))) {

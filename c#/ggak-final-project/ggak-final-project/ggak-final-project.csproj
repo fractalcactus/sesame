@@ -254,6 +254,7 @@
     <Content Include="Content\logo.svg" />
     <Content Include="Content\newmarker.svg" />
     <Content Include="Content\openmarker.svg" />
+    <Content Include="Content\play.svg" />
     <Content Include="Content\usermarker.svg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
