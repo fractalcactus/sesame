@@ -22,13 +22,13 @@ namespace ggak_final_project.Models
         /// 
         /// </summary>
         [DataMember(Name = "Lat")]
-        [Required]
+        //[Required]
         public float Latitude { get; set; }
         [DataMember(Name = "Lng")]
-        [Required]
+        //[Required]
         public float Longitude { get; set; }
      //will later put in path ID, but it will be a relationship
-        [Required]
+        //[Required]
         public String URL { get; set; }
         public int Order { get; set; }
      

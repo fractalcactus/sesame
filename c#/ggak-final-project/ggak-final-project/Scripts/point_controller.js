@@ -50,7 +50,7 @@ function Controller() {
         type();
         setInterval(function () {
             for (var i = 0; i < global.allMarkers.length; i++) {
-                global.allMarkers[i].setMap(map);
+                global.allMarkers[i].setMap(null);
             }
             type();
         }.bind(this), 10000);
