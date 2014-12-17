@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Threading;
+using System.Web.Http;
+using Results = System.Web.Http.Results; 
 using ggak_final_project.Controllers;
 using ggak_final_project.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -44,11 +47,25 @@ namespace ggak_final_project.Tests
 
         }
         [TestMethod]
-        public void TestMethod1()
+        public void it_returns_a_single_checkpoint()
         {
-            WayPoint checkWayPoint = _controller.GetWayPoint("2");
+            WayPoint checkWayPoint = _controller.GetWayPoint(2);
             //assert
             Assert.AreEqual("W2URL", checkWayPoint.URL);
+        }
+
+        [TestMethod]
+        public void it_responds_with_an_error_with_incorrect_post()
+        {
+            //how to mock json test?
+
+            WayPoint checkWayPoint = new WayPoint() { };
+            _controller.Configuration = new HttpConfiguration();
+            _controller.Validate(checkWayPoint);
+
+            IHttpActionResult response = _controller.PostWayPoint(checkWayPoint);
+
+            Assert.IsInstanceOfType(response, typeof( Results.BadRequestErrorMessageResult));
         }
     }
 }

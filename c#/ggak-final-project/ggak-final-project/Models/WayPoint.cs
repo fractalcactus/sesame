@@ -10,19 +10,25 @@ using Microsoft.Ajax.Utilities;
 
 namespace ggak_final_project.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class WayPoint
     {
         public int Id { get; set; } //shouldn't be able to set!!!!!!!! make private set
         //public float Lat { get; set; }
         //public float Lng { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [DataMember(Name = "Lat")]
-        //[Required]
+        [Required]
         public float Latitude { get; set; }
         [DataMember(Name = "Lng")]
-        //[Required]
+        [Required]
         public float Longitude { get; set; }
      //will later put in path ID, but it will be a relationship
-        //[Required]
+        [Required]
         public String URL { get; set; }
         public int Order { get; set; }
      

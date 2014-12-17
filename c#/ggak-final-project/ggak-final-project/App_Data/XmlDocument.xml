@@ -36,5 +36,15 @@
             </summary>
             <param name="id"></param>
         </member>
+        <member name="T:ggak_final_project.Models.WayPoint">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ggak_final_project.Models.WayPoint.Latitude">
+            <summary>
+            
+            </summary>
+        </member>
     </members>
 </doc>

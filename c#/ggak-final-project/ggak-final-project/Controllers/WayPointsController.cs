@@ -5,12 +5,14 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Mvc;
 using ggak_final_project.Controllers.business_logic;
 using ggak_final_project.Models;
 using Microsoft.Ajax.Utilities;
@@ -39,43 +41,37 @@ namespace ggak_final_project.Controllers
         {
             return db.WayPoints;
 
+
         }
 
         //a check method to see if you're at a WayPoint
         // GET: api/WayPoints/5
         //[ResponseType(typeof(WayPoint))]
-        public WayPoint GetWayPoint(string lat, string lng)
+        public WayPoint GetWayPoint(float lat, float lng)
         {
-            float checkLat = float.Parse(lat); //get the Lat and Lng from the Json object
-            float checklng = float.Parse(lng);
 
-            Dictionary<string, string> jsonToReturn = new Dictionary<string, string>();
-            jsonToReturn.Add("Id", "0");
-            jsonToReturn.Add("URL", "");
-
-            WayPoint pointToReturn = new WayPoint();
             IQueryable<WayPoint> allPoints = db.WayPoints; //get all points from db
 
             //create radius object
             Radius radius = new Radius(); //currently putting in a threshold radius of 
 
 
-            return allPoints.ToList().FirstOrDefault(p => radius.isInRadius(p.Latitude, p.Longitude, checkLat, checklng));
-            
+            return allPoints.ToList().FirstOrDefault(p => radius.isInRadius(p.Latitude, p.Longitude, lat, lng));
+
         }
 
         //returns a waypoint given the id
         // GET: api/WayPoints?id=5
         //[ResponseType(typeof(WayPoint))]
-        public WayPoint GetWayPoint(string id)
+        public WayPoint GetWayPoint(int id)
         {
-            int checkId = int.Parse(id);
-            WayPoint pointToReturn = new WayPoint();
-            IQueryable<WayPoint> allPoints = db.WayPoints; //get all points from db
+            //  int checkId = int.Parse(id);
+            //  WayPoint pointToReturn = new WayPoint();
+            // IQueryable<WayPoint> allPoints = db.WayPoints; //get all points from db
 
-      
+            // return   db.WayPoints.Find(id);
 
-            return allPoints.ToList().FirstOrDefault(p => p.Id == checkId);
+            return db.WayPoints.FirstOrDefault(p => p.Id == id);
 
         }
 
@@ -118,16 +114,24 @@ namespace ggak_final_project.Controllers
         //store lat and long and url in db
         //  [HttpPost]
         [ResponseType(typeof(WayPoint))]
-        public WayPoint PostWayPoint([FromBody] WayPoint waypoint) // before string previously 
+        public IHttpActionResult PostWayPoint([FromBody] WayPoint waypoint) // before string previously 
         {
-            //if (ModelState.IsValid)
-            //{
-                db.WayPoints.Add(waypoint);
-                db.SaveChanges();
-                return waypoint;
-            //}
 
-            //return null;
+
+
+            if (!ModelState.IsValid)
+            {
+                var message = string.Join(" | ", ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage));
+
+                return BadRequest(message);
+            }
+
+            db.WayPoints.Add(waypoint);
+            db.SaveChanges();
+            return Ok(waypoint);
+
         }
 
         // DELETE: api/WayPoints/5
