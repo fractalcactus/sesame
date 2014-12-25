@@ -1,4 +1,7 @@
-# Clearing House
+# Sesame 
+- an app for merging online content with a real world treasure hunt. 
+- unlock messages/videos/music when you reach a checkpoint, set by some one else on a map.
+- uses html5 gps and consumes the google maps API
 
 # hosted at
  `http://worldplayground.azurewebsites.net/`
