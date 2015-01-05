@@ -121,7 +121,7 @@ function Controller() {
       draggablePoint = {
           Latitude: latitude,
           Longitude: longitude,
-          URL: $("#enter-url").val(),
+          URL: null,
       };
       google.maps.event.addListener(temporaryMarker, 'dragend', function (event) {
           latitude = temporaryMarker.getPosition().lat();
@@ -129,13 +129,14 @@ function Controller() {
           draggablePoint = {
               Latitude: latitude,
               Longitude: longitude,
-              URL: $("#enter-url").val(),
+              URL: null,
           };
       });
 
     },
     savePoint: function (point) {
         var self = this;
+        point.URL = $("#enter-url").val();
         $.ajax({
             type: "POST",
             url: "api/WayPoints",
