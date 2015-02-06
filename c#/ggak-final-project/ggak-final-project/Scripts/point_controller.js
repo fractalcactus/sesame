@@ -66,7 +66,6 @@ function Controller() {
     },
     positionReponse: function (position) {
       var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      console.log(pos);
       this.checkLocation(pos);
       this.moveUserMarker(pos);
     },
@@ -171,7 +170,6 @@ function Controller() {
         });
     },
     getMarkers: function () {
-        console.log("this", this)
         var self = this;
         $.ajax({
             type: "GET",
@@ -293,8 +291,6 @@ function Controller() {
   // }
 
   // var checkLocation = function(pos) {
-
-  //   console.log(pos)
 
   //   // $.ajax({
   //   //   type: "GET",
