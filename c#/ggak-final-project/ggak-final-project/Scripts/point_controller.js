@@ -58,15 +58,15 @@ function Controller() {
     getUserLocation: function () {
 
       if(navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(this.positionReponse.bind(this), this.positionError.bind(this));
+        navigator.geolocation.getCurrentPosition(this.positionReponse.bind(this), this.positionError.bind(this));
       }
       else {
         handleNoGeolocation(false);
       }
     },
     positionReponse: function (position) {
-        var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        console.log(pos);
+      var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      console.log(pos);
       this.checkLocation(pos);
       this.moveUserMarker(pos);
     },

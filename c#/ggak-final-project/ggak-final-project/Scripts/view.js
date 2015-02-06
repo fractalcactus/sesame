@@ -3,16 +3,26 @@ function View() {
 }
 
 View.prototype = {
+  // Map initializes zoomed out, looking at NZ
   initializeMap: function() {
     var mapOptions = {
-      center: {lat: -41.295291, lng: 174.773071},
-      zoom: 18,
+      center: {lat: -43.52853067061281, lng: 173.184561225},
+      zoom: 5,
       mapTypeControl: false,
       panControl: false,
       zoomControl: false,
       streetViewControl: false,
     }
   this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  this.getInitialLocation();
+  },
+  // Map zooms in to user location
+  getInitialLocation: function() {
+    var self = this;
+    navigator.geolocation.getCurrentPosition(function(position) {
+      self.map.panTo({ lat: position.coords.latitude, lng: position.coords.longitude });
+      self.map.setZoom(18);
+    });
   },
   initializeUserMarker: function(pos) {
       this.userMarker = new google.maps.Marker({
