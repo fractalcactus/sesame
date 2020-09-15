@@ -2,8 +2,9 @@
 - an app for merging online content with a real world treasure hunt. 
 - unlock messages/videos/music when you reach a checkpoint, set by some one else on a map.
 - uses html5 gps and consumes the google maps API
+- grand prize winner of the [2014 Cap App Challenge](https://viccareers.com/2014/11/29/the-cap-app-challenge/)
 
-# hosted at
+# previously hosted at
  `http://worldplayground.azurewebsites.net/`
 
 ## Dev Goals
