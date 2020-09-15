@@ -1,10 +1,15 @@
 # Sesame 
-- an app for merging online content with a real world treasure hunt. 
-- unlock messages/videos/music when you reach a checkpoint, set by some one else on a map.
-- uses html5 gps and consumes the google maps API
-- grand prize winner of the [2014 Cap App Challenge](https://viccareers.com/2014/11/29/the-cap-app-challenge/)
 
-# previously hosted at
+Grand prize winner of the [2014 Cap App Challenge](https://viccareers.com/2014/11/29/the-cap-app-challenge/):
+
+> "A team of current and former Victoria University students, meanwhile, took top prize in the Cap App Challenge. Victoria graduate George Feast-Parker, former student Katherine Anderson and current part time law student Gabrielle Young took out the top prize with their app, Sesame, which they describe as a real world treasure map for users to leave checkpoints on a live map and link to content. The three met and came up with the idea for Sesame while taking part in a nine-week intensive software development course. They have since all found jobs in the technology sector. The team won $10,000"
+https://techblog.nz/891-Hot-News-in-IT-this-week
+
+- unlock messages/videos/music when you reach a checkpoint, set by some one else on a map.
+- uses html5 gps and the google maps API
+
+
+## previously hosted at
  `http://worldplayground.azurewebsites.net/`
 
 ## Dev Goals
